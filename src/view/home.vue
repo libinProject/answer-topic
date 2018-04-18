@@ -1,11 +1,13 @@
 <template>
   <div class="waaper">
     <div class="logo"></div>
-    <div class="rule">游戏规则</div>
-    <div class="banner"></div>
-    <a href="" class="home-btn">开始答题</a>
-    <a href="" class="home-btn">偷越秘籍</a>
-    <a href="" class="home-btn">排行榜</a>
+    <div class="rule-btn">游戏规则</div>
+    <figure class="banner">
+      <img src="../assets/home-baner.png" alt="">
+    </figure>
+    <a href="" class="btn-link to-ask">开始答题</a>
+    <a href="" class="btn-link to-cheats">偷越秘籍</a>
+    <a href="/#/ranking" class="btn-link to-ranking">排行榜</a>
     <div class="mark"></div>
     <Rule></Rule>
   </div>
@@ -42,30 +44,24 @@ export default {
       margin:66px 0 0 56px;
       background: url('../assets/logo.png')
     }
-    .rule{
-      position: absolute;
-      right: 0;
-      top:60px;
-      width: 197px;
-      height: 60px;
-      font-size: 28px;
-      line-height: 60px;
-      color: #fff;
-      text-align: center;
-      z-index: 1;
-      &::after{
-        content:'';
-        background-color: rgba( 0, 46, 115,0.349 );
-        width: 100%;
-        height: 100%;
-        border-top-left-radius: 30px;
-        border-bottom-left-radius: 30px;
-        display: block;
-        position: absolute;
-        left: 0;
-        top: 0;
-        z-index: -1;
-      }
+    .banner{
+      width: 588px;
+      height: 578px;
+      margin:0 auto 35px;
+    }
+    .btn-link{
+      display: block;
+      font-size: 0;
+      width: 418px;
+      height: 96px;
+      background: url('../assets/to-ask.png') no-repeat;
+      margin:0 auto 20px;
+    }
+    .to-cheats{
+      background: url('../assets/to-cheats.png') no-repeat;
+    }
+    .to-ranking{
+      background: url('../assets/to-ranking.png') no-repeat;
     }
 
     .home-btn{

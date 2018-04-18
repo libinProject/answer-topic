@@ -11,36 +11,34 @@ export default {
 </script>
 
 <style>
-
-/* Reset */
-*{margin: 0; padding: 0;}
-body, select, input, option { color: #454749; font: 16px/1.5 "Microsoft YaHei",Arial; -webkit-text-size-adjust: none; }
-ul, ol, li { list-style-type: none; }
-em, i ,var{ font-style: normal; }
-input, button, textarea, select { font-size: 16px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
-a { text-decoration: none; color: #333;}
-a img { border: 0 none; }
-img { max-width: 100%; vertical-align: top; }
-figure, figcaption { display: block; }
-input:focus::-webkit-input-placeholder { color: rgba(0,0,0,0); }
-input::-webkit-input-placeholder { color: #999; }
-textarea:focus::-webkit-input-placeholder { color: rgba(0,0,0,0); }
-textarea::-webkit-input-placeholder { color: #999; }
-input[type="button"], input[type="text"], input[type="submit"], input[type="password"], input[type="search"], input[type="email"], input[type="number"], input[type="tel"], button, textarea { -webkit-appearance: none; -moz-appearance: none; -webkit-border-image: none; border-image: none; -webkit-border-radius: 0; border-radius: 0;}
-input:focus, a{ outline: none;}
-.clearfix:after { content: ""; display: block; height: 0; overflow: hidden; clear: both; visibility: hidden; }
-
-input::-webkit-input-placeholder {  line-height: 1.5em;color: #ccc;}
-body, html {
-    height: 100%;
-    -webkit-tap-highlight-color: transparent;
-}
-body {
-    overflow-x: hidden;
-    background-color: #fbf9fe;
-}
+@import './mixin/publick.css';
 #app {
   display: flex;
   height: 100%;
+}
+.rule-btn{
+  position: absolute;
+  right: 0;
+  top:60px;
+  width: 155px;
+  height: 60px;
+  font-size: 28px;
+  line-height: 60px;
+  color: #fff;
+  text-align: center;
+  z-index: 5;
+}
+.rule-btn::after{
+  content:'';
+  background-color: rgba( 0, 46, 115,0.349 );
+  width: 100%;
+  height: 100%;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
 }
 </style>
