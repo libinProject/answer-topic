@@ -3,20 +3,24 @@
     <div class="logo"></div>
     <div class="rule">游戏规则</div>
     <div class="banner"></div>
-    <div>
-      <a href="">开始答题</a>
-      <a href="">偷越秘籍</a>
-      <a href="">排行榜</a>
-    </div>
+    <a href="" class="home-btn">开始答题</a>
+    <a href="" class="home-btn">偷越秘籍</a>
+    <a href="" class="home-btn">排行榜</a>
+    <div class="mark"></div>
+    <Rule></Rule>
   </div>
 </template>
 
 <script>
+import Rule from "../components/rule.vue"
 export default {
   data () {
     return {
       msg: ''
     }
+  },
+  components: {
+    Rule
   },
   created () {
   },
@@ -63,5 +67,27 @@ export default {
         z-index: -1;
       }
     }
+
+    .home-btn{
+      display: block; 
+      margin:25px auto 0;
+      border-width: 2px;
+      border-style: solid;
+      background-image: linear-gradient( 90deg, rgb(255,255,0) 0%, rgb(234,215,10) 47%, rgb(212,174,20) 100%);
+      box-shadow: 1.5px 2.598px 4px 0px rgb( 253, 255, 62 );
+      width: 409px;
+      height: 87px;
+      font-size: 32px;
+      color: #4b1d04;
+    }
+  }
+  .mark{
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(11, 52, 129, 0.69);
+    z-index: 10;
   }
 </style>
