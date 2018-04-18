@@ -1,15 +1,14 @@
 <template>
   <div class="waaper">
     <div class="logo"></div>
-    <div class="rule-btn">游戏规则</div>
+    <div class="rule-btn" @click="showRule">游戏规则</div>
     <figure class="banner">
       <img src="../assets/home-baner.png" alt="">
     </figure>
-    <a href="" class="btn-link to-ask">开始答题</a>
-    <a href="" class="btn-link to-cheats">偷越秘籍</a>
+    <a href="/#/answer" class="btn-link to-ask">开始答题</a>
+    <a href="/#/cheats" class="btn-link to-cheats">偷越秘籍</a>
     <a href="/#/ranking" class="btn-link to-ranking">排行榜</a>
-    <div class="mark"></div>
-    <Rule></Rule>
+    <Rule v-show="showRuleStatus" :status="showRuleStatus" @showRule="showRule"></Rule>
   </div>
 </template>
 
@@ -18,7 +17,8 @@ import Rule from "../components/rule.vue"
 export default {
   data () {
     return {
-      msg: ''
+      msg: '',
+      showRuleStatus: false
     }
   },
   components: {
@@ -27,13 +27,16 @@ export default {
   created () {
   },
   methods: {
+    showRule(){
+      this.showRuleStatus =! this.showRuleStatus
+    }
   }
 }
 </script>
 
 <style scoped lang="less">
   .waaper{
-    flex:1;
+    height: 100%;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     background: url('../assets/home-bg.jpg') 50% 50% no-repeat;
@@ -76,14 +79,5 @@ export default {
       font-size: 32px;
       color: #4b1d04;
     }
-  }
-  .mark{
-    position: fixed;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(11, 52, 129, 0.69);
-    z-index: 10;
   }
 </style>

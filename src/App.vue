@@ -13,7 +13,6 @@ export default {
 <style>
 @import './mixin/publick.css';
 #app {
-  display: flex;
   height: 100%;
 }
 .rule-btn{
