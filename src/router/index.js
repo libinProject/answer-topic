@@ -5,7 +5,6 @@ import Answer from '../view/answer.vue'
 import Cheats from '../view/cheats.vue'
 import PkAnswer from '../view/pk-answer.vue'
 import Ranking from '../view/ranking.vue'
-import Result from '../view/result.vue'
 
 Vue.use(Router)
 
@@ -35,11 +34,6 @@ export default new Router({
       path: '/Ranking',
       name: 'Ranking',
       component: Ranking
-    },
-    {
-      path: '/Result',
-      name: 'Result',
-      component: Result
     }
 
   ]

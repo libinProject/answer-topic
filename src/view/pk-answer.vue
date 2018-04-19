@@ -1,15 +1,64 @@
 <template>
   <div class="waaper">
-    pk
+    <section class="header">
+      <div class="info">
+        <div class="head">
+          <figure>
+            <img src="../assets/my-head.png" alt="">
+          </figure> 
+        </div>
+        <span class="name">nanana</span>
+        <span class="level">潍柴白丁</span>
+      </div>
+      <span class="pk"></span>
+      <!-- 失败后显示分数对比 -->
+      <div class="pk-number" v-if="pkStatus==2">3232 <em>vs</em> 5678</div>
+      <div class="info other-info">
+        <div class="head">
+          <figure>
+            <img src="../assets/other-head.png" alt="">
+          </figure>  
+        </div>
+        <span class="name">nanana</span>
+        <span class="level">潍柴白丁</span>
+      </div>
+    </section>
+    <div class="answer-box" v-if="pkStatus==0">
+        <answer :ask="ask"></answer>
+    </div>
+    <pk-ok v-if="pkStatus==1"></pk-ok>
+    <pk-err v-if="pkStatus==2"></pk-err>
   </div>
 </template>
 
 <script>
+import answer from "../components/answer"
+import pkOk from "../components/pk-ok"
+import pkErr from "../components/pk-err"
 export default {
   data () {
     return {
-      msg: ''
+      ask:[
+        {
+          status:0
+        },
+        {
+          status:0
+        },
+        {
+          status:0
+        },
+        {
+          status:0
+        }
+      ],
+      pkStatus:'0'
     }
+  },
+  components: {
+    answer,
+    pkOk,
+    pkErr
   },
   created () {
   },
@@ -18,43 +67,117 @@ export default {
 }
 </script>
 
-<style scoped lang="less">
+<style lang="less">
+  #app{
+    display: flex;
+    height: 100%;
+  }
   .waaper{
     flex:1;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    background: url('../assets/home-bg.jpg') 50% 50% no-repeat;
-    background-size: cover;
-    .logo{
-      width: 196px;
-      height: 54px;
-      margin:66px 0 0 56px;
-      background: url('../assets/logo.png')
-    }
-    .rule{
-      position: absolute;
-      right: 0;
-      top:60px;
-      width: 197px;
-      height: 60px;
-      font-size: 28px;
-      line-height: 60px;
-      color: #fff;
-      text-align: center;
+    background: #05438d;
+  }
+  .header{
+    position: relative;
+    min-height: 330px;
+    padding: 64px 50px 0;
+    display: flex;
+    justify-content: space-between;
+    z-index: 1;
+    background: url(../assets/pk-bg.png) no-repeat top;
+  }
+  .info{
+    text-align: center;
+    .head{
+      width: 228px;
+      height: 236px;
+      position: relative;
       z-index: 1;
-      &::after{
-        content:'';
-        background-color: rgba( 0, 46, 115,0.349 );
-        width: 100%;
-        height: 100%;
-        border-top-left-radius: 30px;
-        border-bottom-left-radius: 30px;
-        display: block;
+      padding: 21px 16px;
+      box-sizing: border-box;
+      &:before{
+        background: url('../assets/my-Halo.png') no-repeat;
+        content: '';
         position: absolute;
         left: 0;
-        top: 0;
+        top:0;
+        width: 100%;
+        height: 100%;
         z-index: -1;
+        animation:rotating 5s linear infinite;
+        display: block;
+      }
+      figure{
+        width: 195px;
+        height: 195px;
+        overflow: hidden;
+        border-radius: 50%;
+        img{
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
       }
     }
+    .name{
+      font-size: 32px;
+      line-height: 68px;
+      color: #0bd4ff;
+      display: block;
+    }
+    .level{
+      font-size: 24px;
+      color: #fff;
+      border:2px solid rgb(230, 164, 18);
+      border-radius: 5px;
+      width: 115px;
+      height: 34px;
+      padding: 2px 10px;
+      line-height: 34px;
+    }
+  }
+  .other-info{
+    .head{
+      background: url('../assets/other-Halo.png') no-repeat; 
+    }
+    .level{
+      border-color: rgb(8, 177, 240);
+    }
+  } 
+  .pk{
+    background: url('../assets/pk.png') no-repeat;
+    width: 286px;
+    height: 98px;
+    position: absolute;
+    left: 50%;
+    margin-left: -160px;
+    top: 134px;
+    z-index: -1;
+  }
+  .pk-number{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,0);
+    top: 260px;
+    font-size: 30px;
+    line-height: 30px;
+    color: #fff;
+    em{
+      color: #e0cb1c;
+    }
+  }
+  .answer-box{
+     width: 646px;
+      overflow: hidden;
+      background:rgba(247, 217, 156, 0.18);
+      border:2px solid #6ac5e4;
+      margin: 66px auto 95px;
+      border-radius: 16px;
+      text-align: center;
+  }
+  @keyframes rotating{
+    from{transform:rotate(0)}
+    to{transform:rotate(360deg)}
   }
 </style>

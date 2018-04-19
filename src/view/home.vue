@@ -37,6 +37,7 @@ export default {
 <style scoped lang="less">
   .waaper{
     height: 100%;
+    width: 100%;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     background: url('../assets/home-bg.jpg') 50% 50% no-repeat;
