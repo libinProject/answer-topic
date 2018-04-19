@@ -22,7 +22,10 @@ export default {
 }
 </script>
 
-<style scoped lang="less">
+<style lang="less">
+#app{
+  display: flex;
+}
   .list{
     display: flex;
     align-items: center;
