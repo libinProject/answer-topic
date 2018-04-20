@@ -4,7 +4,7 @@
       <div class="info">
         <div class="head">
           <figure>
-            <img src="../assets/my-head.png" alt="">
+            <img src="../../static/img/my-head.png" alt="">
           </figure> 
         </div>
         <span class="name">nanana</span>
@@ -16,7 +16,7 @@
       <div class="info other-info">
         <div class="head">
           <figure>
-            <img src="../assets/other-head.png" alt="">
+            <img src="../../static/img/other-head.png" alt="">
           </figure>  
         </div>
         <span class="name">nanana</span>
@@ -67,9 +67,8 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style scoped lang="less">
   #app{
-    display: flex;
     height: 100%;
   }
   .waaper{
@@ -85,7 +84,7 @@ export default {
     display: flex;
     justify-content: space-between;
     z-index: 1;
-    background: url(../assets/pk-bg.png) no-repeat top;
+    background: url(../../static/img/pk-bg.png) no-repeat top;
   }
   .info{
     text-align: center;
@@ -97,7 +96,7 @@ export default {
       padding: 21px 16px;
       box-sizing: border-box;
       &:before{
-        background: url('../assets/my-Halo.png') no-repeat;
+        background: url('../../static/img/my-Halo.png') no-repeat;
         content: '';
         position: absolute;
         left: 0;
@@ -139,14 +138,14 @@ export default {
   }
   .other-info{
     .head{
-      background: url('../assets/other-Halo.png') no-repeat; 
+      background: url('../../static/img/other-Halo.png') no-repeat; 
     }
     .level{
       border-color: rgb(8, 177, 240);
     }
   } 
   .pk{
-    background: url('../assets/pk.png') no-repeat;
+    background: url('../../static/img/pk.png') no-repeat;
     width: 286px;
     height: 98px;
     position: absolute;

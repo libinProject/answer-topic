@@ -2,7 +2,7 @@
 <div class="pk-ok">
   <div class="top">
     <figure class="logo">
-      <img src="../assets/pk-cheat-img.png" alt="">
+      <img src="../../static/img/pk-cheat-img.png" alt="">
     </figure>
     <div class="content">
       <div class="name">潍柴动力</div>
@@ -42,7 +42,7 @@ export default {
       content: '';
       width: 294px;
       height: 83px;
-      background: url('../assets/pk-ok-title.png') no-repeat;
+      background: url('../../static/img/pk-ok-title.png') no-repeat;
       position: absolute;
       top: -40px;
       left: 50%;
@@ -93,7 +93,7 @@ export default {
         height: 73px;
         display: inline-block;
         margin:0 16px;
-        background: url('../assets/price.png') no-repeat;
+        background: url('../../static/img/price.png') no-repeat;
       }
     }
     .footer{

@@ -5,7 +5,7 @@
       <div class="cheats">
         <div class="header">
           <figure>
-            <img src="../assets/cheats.png" alt="">
+            <img src="../../static/img/cheats.png" alt="">
           </figure>
           <span>潍坊斯太尔动力主营潍柴发动机、潍柴发电机组、潍柴原厂配件、潍柴气体机、潍柴专用机油等。</span>
         </div>
@@ -43,7 +43,7 @@ export default {
   .waaper{
     flex:1;
     display: flex;
-    background: url('../assets/ranking-bg.jpg') 50% 50% no-repeat;
+    background: url('../../static/img/ranking-bg.jpg') 50% 50% no-repeat;
     background-size: cover; 
     padding: 0 20px;
     box-sizing: border-box;
@@ -52,7 +52,7 @@ export default {
       content:'';
       display: block;
       position: absolute;
-      background: url('../assets/top-icon.png');
+      background: url('../../static/img/top-icon.png');
       width: 724px;
       height: 397px;
       top:0px;
@@ -91,6 +91,7 @@ export default {
         img{
           width: 455px;
           height: 305px;
+          vertical-align: middle;
         }
       }
       span{

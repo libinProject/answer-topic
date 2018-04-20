@@ -55,7 +55,7 @@ export default {
     display: flex;
     overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-    background: url('../assets/ranking-bg.jpg') 50% 50% no-repeat;
+    background: url('../../static/img/ranking-bg.jpg') 50% 50% no-repeat;
     background-size: cover; 
     padding: 0 20px;
     box-sizing: border-box;
@@ -64,7 +64,7 @@ export default {
       content:'';
       display: block;
       position: absolute;
-      background: url('../assets/top-icon.png');
+      background: url('../../static/img/top-icon.png');
       width: 724px;
       height: 397px;
       top:0px;
