@@ -3,16 +3,26 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
-    mes:''
+    toast: {
+      toast: false,
+      toastLock: true
+    }
   },
   mutations: {
-    SetMes (state, b) {
-      state.mes = b
+    toggleToast (state) {
+      if (state.toast.toastLock) {
+        state.toast.toast = !state.toast.toast
+      }
     }
   },
   actions: {
-    SetMes (context, b) {
-      context.commit('SetMes', b)
+    toggleToast (context) {
+      context.commit('toggleToast')
+    }
+  },
+  getters: {
+    toastState: state => {
+      return state.toast.toast
     }
   }
 })

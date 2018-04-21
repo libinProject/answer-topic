@@ -10,21 +10,24 @@
     </div>
   </div>
   <div class="price">2分奖励</div>
-  <div class="footer">
-    <button>确定</button>
+  <div class="footer" v-if="todayPkStatus == 'false'">
+    <button @click="submit">确定</button>
   </div>
 </div>
 </template>
 
 <script>
 export default {
-  props:[],
+  props:['todayPkStatus'],
   data () {
     return {
       msg: ''
     }
   },
   methods: {
+    submit () {
+      this.$emit('submit')
+    }
   }
 }
 </script>

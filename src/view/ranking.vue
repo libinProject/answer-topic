@@ -1,44 +1,110 @@
 <template>
   <div class="waaper">
-    <div class="rule-btn">游戏规则</div>
+    <div class="rule-btn" @click="showRule">游戏规则</div>
     <div class="main">
       <div class="tabs">
         <span :class="[tabs=='0'?'select':'']" @click="tabsSwitch(0)">期榜</span>
         <span :class="[tabs=='1'?'select':'']" @click="tabsSwitch(1)">总榜</span>
       </div>
       <!-- 期榜 -->
-      <ul class="list-box" v-show="tabs==0">
-          <li v-for="(item,index) in list" :key="index">
+      <ul class="list-box" v-show="tabs==0" @scroll="batchSccroll">
+          <li v-for="(item,index) in batch.list" :key="index">
             <rankList :item='item' :index='index'></rankList>
           </li>
+          <li class="null" v-if="!batch.list.length">暂无数据</li>
+          <li class="loding" v-else>{{batch.end?'已经到底了':'正在加载中'}}</li>
       </ul>
       <!-- 总榜 -->
-      <ul class="list-box" v-show="tabs==1">
-          <li v-for="(item,index) in list" :key="index">
+      <ul class="list-box" v-show="tabs==1" @scroll="allSccroll">
+          <li v-for="(item,index) in allList.list" :key="index">
             <rankList :item='item' :index='index'></rankList>
           </li>
+          <li class="null" v-if="!allList.list.length">暂无数据</li>
+          <li class="loding" v-else>{{batch.end?'已经到底了':'正在加载中'}}</li>
       </ul>
     </div>
+    <Rule v-show="showRuleStatus" :status="showRuleStatus" @showRule="showRule"></Rule>
   </div>
 </template>
 
 <script>
+import XHR from '../api'
 import rankList from '../components/rankList.vue'
+import Rule from "../components/rule.vue"
 export default {
   data () {
     return {
-      list: [0,1,2,3,4,5,6,7],
+      batch: {
+        list:[],
+        loading:0,
+        end:false,
+        page:0
+      },
+      allList: {
+        list:[],
+        loading:0,
+        end:false,
+        page:0
+      },
+      showRuleStatus: false,
       tabs:'0'
     }
   },
   components: {
-    rankList
+    rankList,
+    Rule
   },
   created () {
+    this.getWxconfig()
+    this.hideshare()
+    this.getTop(this.allList)  // 总榜
+    this.getTop(this.batch) // 期榜
+  },
+  mounted () {
+    this.share()
   },
   methods: {
+    showRule(){
+      this.showRuleStatus =! this.showRuleStatus
+    },
     tabsSwitch(index){
       this.tabs = index
+    },
+    getTop (type) {
+      if (type.loading) {
+        return
+      }
+      type.loading = 1
+      let json = {
+        project:'king_of_answer',
+        size:20,
+        page:type.page
+      }
+      if (type !== this.allList) {
+        json['batch'] = window.batch 
+      }
+      XHR.getTop(json).then((res) => {
+        let {data,status} = res.data
+        if(!status){
+          type.list = [...type.list, ...data]
+          if (data.length< 20) {
+            type.end = true
+          }else{
+            type.loading = 0
+            type.page++
+          }
+        }
+      })
+    },
+    allSccroll () {
+     if (e.target.scrollTop + e.target.clientHeight > e.target.scrollHeight-100 && !this.allList.loading) {
+        this.getTop(this.allList)
+      }
+    },
+    batchSccroll(e) {
+      if (e.target.scrollTop + e.target.clientHeight > e.target.scrollHeight-100 && !this.batch.loading) {
+        this.getTop(this.batch)
+      }
     }
   }
 }
@@ -47,6 +113,7 @@ export default {
 <style scoped lang="less">
   .waaper{
     flex:1;
+    height: 100%;
     display: flex;
     background: url('../../static/img/ranking-bg.jpg') 50% 50% no-repeat;
     background-size: cover; 
@@ -111,9 +178,24 @@ export default {
     -webkit-overflow-scrolling: touch;
     flex: 1;
     padding-top: 20px;
+    .null{
+      min-height: 200px;
+      color: #fff;
+      font-size: 50px;
+      text-align: center;
+      line-height: 200px;
+    }
   }
   .list-box li{
     height: 132px;
     margin-bottom: 20px;
+    &.loding{
+      height: 80px;
+      line-height: 80px;
+      font-size: 30px;
+      color: #fff;
+      text-align: center;
+      margin-bottom: 0;
+    }
   }
 </style>

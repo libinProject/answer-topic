@@ -1,21 +1,28 @@
 <template>
  <div class="answer">
-    <header>第一题</header>
-    <h4 class="title">小明想知道长江三峡国际旅游节多长时间举办一次?</h4>
-    <div :class="['ask',item.status==1?'err':'',item.status==2?'yes':'']" v-for="(item, index) in ask" :key="index">一年</div>
+    <header>第{{num[qsIndex]}}题</header>
+    <h4 class="title">{{ask.question}}?</h4>
+    <div :class="['ask',lock!='false'&&index==ask.answer?'yes':'',lock==index&&index!=ask.answer?'err':'']" 
+      v-for="(item, index) in ask.answerList" 
+      :key="index" @click="select(index)">{{item}}</div>
     <div class="tip">点击选项，完成答题</div>
   </div>
 </template>
 
 <script>
 export default {
-  props:['ask'],
+  props:['ask','lock','qsIndex'],
   data () {
     return {
-      msg: ''
+      num:['一','二','三','四','五','六','七','八','九','十']
     }
   },
+  created () {
+  },
   methods: {
+    select(index){
+     this.$emit('select', index)
+    }
   }
 }
 </script>
@@ -34,17 +41,23 @@ export default {
       color: #fff;
       padding: 50px 50px 64px;
       text-align: left;
+      word-break: break-all;
+      text-align: justify;
     }
     .ask{
       border-radius: 48px;
       width: 488px;
-      height: 97px;
-      line-height: 97px;
+      min-height: 97px;
+      line-height: 34px;
       font-size: 30px;
       color: #4b1d04;
-      margin-bottom: 36px;
-      display: inline-block;
+      display: flex;
+      align-items: center;
       position: relative;
+      padding: 20px;
+      box-sizing: border-box;
+      margin: 0 auto 36px;
+      justify-content: center;
       background-image: -webkit-linear-gradient( -90deg, rgb(247,247,247) 0%, rgb(239,239,239) 47%, rgb(230,230,230) 100%);
       &::after{
         content:'';

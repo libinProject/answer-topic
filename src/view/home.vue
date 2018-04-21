@@ -5,30 +5,58 @@
     <figure class="banner">
       <img src="../../static/img/home-baner.png" alt="">
     </figure>
-    <span @click="jump('/answer')" class="btn-link to-ask">开始答题</span>
+    <span @click="toQa" class="btn-link to-ask">开始答题</span>
     <span @click="jump('/cheats')" class="btn-link to-cheats">偷越秘籍</span>
     <span @click="jump('/ranking')" class="btn-link to-ranking">排行榜</span>
     <Rule v-show="showRuleStatus" :status="showRuleStatus" @showRule="showRule"></Rule>
+    <toast :msg="toastMsg" v-if="toastState"></toast>
   </div>
 </template>
 
 <script>
 import Rule from "../components/rule.vue"
+import toast from "../components/toast"
+import storage from "../store/storage"
 export default {
   data () {
     return {
-      msg: '',
-      showRuleStatus: false
+      toastMsg: '',
+      showRuleStatus: false,
+      toastState:false
     }
   },
   components: {
-    Rule
+    Rule,
+    toast
   },
   created () {
+    this.getWxconfig()
+    this.hideshare()
+    // this.jump(`/PkAnswer/xiaohuihehe/60`)
+  },
+  mounted () {
+    this.share()
   },
   methods: {
+    showToast (msg) {
+      if(this.toastState) return
+      this.toastMsg = msg
+      this.toastState = true
+      setTimeout(() => {
+        this.toastState = false
+      }, 2000);
+    },
     showRule(){
       this.showRuleStatus =! this.showRuleStatus
+    },
+    toQa () {
+      let todayQa = this.getCookie('qa')
+      if (todayQa) {
+        this.showToast('今天已经答过题了，请明天再来')
+      }else{
+        let user = JSON.parse(storage.get('userInfo'))
+        this.jump(`/answer/${user.uid}`)
+      }
     }
   }
 }

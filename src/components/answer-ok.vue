@@ -1,24 +1,57 @@
 <template>
 <form action="" class="ask-ok">
   <div class="ask-content">
-    <var class="fenshu">60分</var>
-    <input type="text" placeholder="输入您的手机号码">
+    <var class="fenshu">{{score}}分</var>
+    <input type="tel" 
+      placeholder="输入您的手机号码" 
+      maxlength="11" 
+      v-model="tel" @input="changeInput">
     <span class="tips">首次答题用户需完善你的电话信息，以便在商城中完成积分兑换</span>
   </div>
-  <button>确定</button>
-  <button class="share">邀好友挑战</button>
+  <button :disabled="disabled" type="submit" @click.prevent="submit">确定</button>
+  <button type="button" @click="tipShare" class="share" v-if="score>70">邀好友挑战</button>
+
 </form>
 </template>
 
 <script>
 export default {
-  props:['ask'],
+  props:['ask','rightAnswerCount'],
   data () {
     return {
-      msg: ''
+      disabled:true,
+      tel:''
+    }
+  },
+  computed: {
+    score: function () {
+      return this.rightAnswerCount * 10
     }
   },
   methods: {
+    checkTel(tel) {
+        // 验证手机号
+        let reg = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/
+        if (reg.test(tel.trim())) {
+            return true
+        } else {
+            return false
+        }
+    },
+    changeInput() {
+      if(this.tel.length > 10 && this.checkTel(this.tel)){
+        this.disabled = false
+        console.log(this.disabled)
+      }else{
+        this.disabled = true
+      }
+    },
+    submit () {
+      this.$emit('submit',this.tel)
+    },
+    tipShare(){
+      this.$emit('tipShare')
+    }
   }
 }
 </script>
@@ -89,8 +122,8 @@ export default {
       }
     }
     button{
-       width: 542px;
-       background-image: -webkit-linear-gradient( -90deg, rgb(255,120,89) 0%, rgb(255,94,74) 47%, rgb(254,68,59) 100%);
+      width: 542px;
+      background-image: -webkit-linear-gradient( -90deg, rgb(255,120,89) 0%, rgb(255,94,74) 47%, rgb(254,68,59) 100%);
       height: 90px;
       border-radius: 45px;
       color: #4b1d04;
@@ -98,6 +131,9 @@ export default {
       margin-bottom: 25px;
       outline: none;
       border:none;
+      &:disabled{
+        opacity: 0.5
+      }
     }
     .share{
       background-image: -webkit-linear-gradient( -90deg, rgb(87,239,249) 0%, rgb(49,195,221) 47%, rgb(11,151,192) 100%);

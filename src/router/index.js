@@ -16,7 +16,7 @@ export default new Router({
       component: Home
     },
     {
-      path: '/Answer',
+      path: '/Answer/:uid',
       name: 'Answer',
       component: Answer
     },
@@ -26,7 +26,7 @@ export default new Router({
       component: Cheats
     },
     {
-      path: '/PkAnswer',
+      path: '/PkAnswer/:uid/:fen',
       name: 'PkAnswer',
       component: PkAnswer
     },

@@ -30,6 +30,11 @@ export default {
     Rule
   },
   created () {
+    this.getWxconfig()
+    this.hideshare()
+  },
+  mounted () {
+    this.share()
   },
   methods: {
     showRule(){

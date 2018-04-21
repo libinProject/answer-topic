@@ -1,4 +1,4 @@
-const session = window.sessionStorage;
+const session = window.localStorage;
 export default {
 	set (key,data){
 		return session.setItem(key,typeof data != 'string' ? JSON.stringify(data) : data);		

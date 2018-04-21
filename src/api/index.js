@@ -1,18 +1,73 @@
 import fetch from './ajax'
 
 export const DEBUG = false                  // 是否开发模式
-const HTTP_DEV = 'https://didi.360che.com/nearby-api'      // 测试地址
-const HTTPS = 'https://nearby-api.360che.com'              // 正式地址
-const URLS = DEBUG ? HTTP_DEV : HTTPS
+const HTTP_DEV = 'http://www.vr0101.com' // 测试地址
 
+const HTTPS = 'http://www.vr0101.com' // 正式地址
+
+const URLS = DEBUG ? HTTP_DEV : HTTPS
+// const URLS = '/bx'
 class XHR {
-  // 商家入驻
-  artcleDetail (json) {  // 文章详情
+  // 获取题目
+  getQs (json) {
     return fetch({
-      url: `https://wxcms-api.360che.com/api/app/apparticle/getarticle`,
+      url: `${URLS}/getQuestions`,
       body: json,
       type: 'GET'
     })
   }
+  // 提交成绩
+  submitAnswer(json) {
+    return fetch({
+      url: `${URLS}/submitAnswer`,
+      body: json,
+      type: 'GET'
+    })
+  }
+  // 更新用户信息
+  updateUser(json) {
+    return fetch({
+      url: `${URLS}/updateUser`,
+      body: json,
+      type: 'GET'
+    })
+  }
+
+  // 获取用户信息
+  getUser (json) {
+    return fetch({
+      url: `${URLS}/getUser`,
+      body: json,
+      type: 'GET'
+    })
+  }
+     
+  // addIntegral 添加积分
+  addIntegral(json) {
+    return fetch({
+      url: `${URLS}/addIntegral`,
+      body: json,
+      type: 'GET'
+    })
+  }
+  // getTop 获取排行榜
+  getTop(json) {
+    return fetch({
+      url: `${URLS}/getTop`,
+      body: json,
+      type: 'GET'
+    })
+  }
+  // getTop 获取排行榜
+  getWechat (json) {
+    return fetch({
+      url: `${URLS}/getsignature`,
+      body: json,
+      type: 'POST'
+    })
+  }
+  
+
+
 }
 export default new XHR()

@@ -4,78 +4,226 @@
       <div class="info">
         <div class="head">
           <figure>
-            <img src="../../static/img/my-head.png" alt="">
+            <img :src="shareUserinfo.headimgurl" alt="">
           </figure> 
         </div>
-        <span class="name">nanana</span>
-        <span class="level">潍柴白丁</span>
+        <span class="name">{{shareUserinfo.nickname}}</span>
+        <span class="level">{{shareUserinfo.dan}}</span>
       </div>
       <span class="pk"></span>
       <!-- 失败后显示分数对比 -->
-      <div class="pk-number" v-if="pkStatus==2">3232 <em>vs</em> 5678</div>
+      <div class="pk-number" v-if="pkStatus==2">
+        {{shareUserinfo.fen}} <em>vs</em> {{todayPkStatus == 'false'?score:todayPkStatus}}
+      </div>
+      <countDownSecond 
+        @stopCall="stopCall"
+        :qsIndex="qsIndex"
+        :lock="lock"
+        v-if="pkStatus==0">
+      </countDownSecond>
       <div class="info other-info">
         <div class="head">
           <figure>
-            <img src="../../static/img/other-head.png" alt="">
+            <img :src="myUserinfo.headimgurl" alt="">
           </figure>  
         </div>
-        <span class="name">nanana</span>
-        <span class="level">潍柴白丁</span>
+        <span class="name">{{myUserinfo.nickname}}</span>
+        <span class="level">{{myUserinfo.dan}}</span>
       </div>
     </section>
     <div class="answer-box" v-if="pkStatus==0">
-        <answer :ask="ask"></answer>
+      <answer :ask="ask[qsIndex]" :qsIndex="qsIndex" :lock="lock" v-if="ask[qsIndex]" @select="select"></answer>
     </div>
-    <pk-ok v-if="pkStatus==1"></pk-ok>
-    <pk-err v-if="pkStatus==2"></pk-err>
+    <pk-ok v-if="pkStatus==1" 
+      :todayPkStatus="todayPkStatus" 
+      @submit="submit">
+    </pk-ok>
+    <pk-err v-if="pkStatus==2" 
+      :todayPkStatus="todayPkStatus"
+      @submit="submit">
+    </pk-err>
+    <toast :msg="toastMsg" v-if="toastState"></toast>
   </div>
 </template>
 
 <script>
+import XHR from '../api'
 import answer from "../components/answer"
 import pkOk from "../components/pk-ok"
 import pkErr from "../components/pk-err"
+import countDownSecond from "../components/countDownSeconds"
+import storage from "../store/storage"
+import toast from "../components/toast"
 export default {
   data () {
     return {
-      ask:[
-        {
-          status:0
-        },
-        {
-          status:0
-        },
-        {
-          status:0
-        },
-        {
-          status:0
-        }
-      ],
-      pkStatus:'0'
+      qsIndex:0, // 当前问题下标
+      ask:[],
+      pkStatus:'0',
+      lock:'false', // 是否选择问题 并上锁
+      rightAnswerCount:0, // 答对题目数量
+      shareUserinfo:{},
+      myUserinfo: {},
+      isPkUser:{}, // pk过的用户
+      todayPkStatus:'false',
+      toastMsg: '', // toast内容
+      toastState:false // toast状态
+    }
+  },
+  computed: {
+    score: function () {
+      return this.rightAnswerCount * 10
     }
   },
   components: {
     answer,
     pkOk,
-    pkErr
+    pkErr,
+    countDownSecond
+  },
+  watch: {
+    qsIndex: function (val, oldVal) {
+      if(val == '10' ){
+        if(this.rightAnswerCount *10 > this.shareUserinfo.fen){
+          this.pkStatus='1'
+        }else{
+          this.pkStatus='2'
+        }
+      }
+    }
   },
   created () {
+    this.getWxconfig()
+    this.hideshare()
+    this.getQuestion()
+    this.shareUserinfo.uid = this.$route.params.uid
+    this.shareUserinfo.fen = this.$route.params.fen
+    this.getShareUser()
+    this.getMyUser()
+    // 判断是否为今天pk过的用户
+    this.getIsPkUser(this.shareUserinfo.uid)
+  },
+  mounted () {
+    this.share()
   },
   methods: {
+    getIsPkUser (uid) {
+      if(this.getCookie('isPkUser')){
+        this.isPkUser = JSON.parse(this.getCookie('isPkUser'))
+        if(this.isPkUser[uid]!=undefined){
+          this.pkStatus = this.isPkUser[uid].status
+          this.todayPkStatus = this.isPkUser[uid].myFen
+        }
+      }
+    },
+    getShareUser () {
+      let json={
+        uid:`${this.shareUserinfo.uid}`
+      }
+      XHR.getUser(json).then((res) => {
+        let {data,status} = res.data
+        if(!status){
+          this.shareUserinfo = {...this.shareUserinfo,...data}
+        }
+      })
+    },
+    getMyUser(){
+      let user = storage.get('userInfo')
+      this.myUserinfo = JSON.parse(user)
+      // 如果是相同用户跳转到首页
+      if (this.shareUserinfo.uid == this.myUserinfo.uid) {
+        this.jump('/')
+      }
+    },
+    getQuestion() {
+      let json = {
+        batch:window.batch,
+        project:'king_of_answer'
+      }
+      XHR.getQs(json).then((res) => {
+        let {data,status} = res.data
+        if(!status){
+          this.ask = data
+        }
+      })
+    },
+    select (index) {
+      if(this.lock == 'false'){
+        this.lock = index
+        // 计算正确答题个数
+        if (index == this.ask[this.qsIndex].answer) {
+          this.rightAnswerCount++
+        }
+        setTimeout(() => {
+          this.lock = 'false'
+          this.qsIndex++
+        }, 500);
+      }
+    },
+    stopCall () {
+      this.qsIndex++
+    },
+    showToast (msg) {
+      if(this.toastState) return
+      this.toastMsg = msg
+      this.toastState = true
+      setTimeout(() => {
+        this.toastState = false
+      }, 2000);
+    },
+    pkResult(uid,integral){
+      let json = {
+        batch:window.batch,
+        uid,
+        project:'king_of_answer',
+        integral
+      }
+      XHR.addIntegral(json).then((res) => {
+        console.log(res.data)
+      })
+    },
+    submit(){
+      let json = {
+        batch:window.batch,
+        uid:this.myUserinfo.uid,
+        project:'king_of_answer',
+        rightAnswerCount :this.rightAnswerCount
+      }
+      XHR.submitAnswer(json).then((res) => {
+        let {status} = res.data
+        if(!status){
+          let InitiatorUid = this.shareUserinfo.uid
+          this.isPkUser[InitiatorUid] = {
+            status: this.pkStatus,
+            myFen: this.rightAnswerCount *10
+          }
+          let ispkUid = JSON.stringify(this.isPkUser)
+          this.setCookie('isPkUser', ispkUid)
+          if(this.rightAnswerCount *10 > this.shareUserinfo.fen){
+            this.pkResult(this.myUserinfo.uid,2)
+          }else{
+            this.pkResult(this.shareUserinfo.uid,1)
+          }
+          if (!data) {
+            this.showToast('不能重复提交')
+          }else{
+            this.showToast('恭喜您提交成功')
+          }
+          this.jump('/')
+        }
+      })
+    }
   }
 }
 </script>
 
 <style scoped lang="less">
-  #app{
-    height: 100%;
-  }
   .waaper{
     flex:1;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     background: #05438d;
+    height:100%;
   }
   .header{
     position: relative;
@@ -174,6 +322,12 @@ export default {
       margin: 66px auto 95px;
       border-radius: 16px;
       text-align: center;
+  }
+  canvas{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,0);
+    bottom: 36px;
   }
   @keyframes rotating{
     from{transform:rotate(0)}

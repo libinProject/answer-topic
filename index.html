@@ -3,10 +3,8 @@
   <head>
     <meta charset="utf-8">
     <title>答题王</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <meta content="" name="keywords">
     <meta content="" name="description">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
     <meta name="apple-mobile-web-app-capable" content="no" />
     <meta name="format-detection" content="telephone=no">
     <script>
@@ -20,9 +18,11 @@
       } else {
         document.write('<meta name="viewport" content="width=750,user-scalable=no, minimum-scale=' + phoneScale + ', maximum-scale=' + phoneScale + '" />')
       }
+      var batch = 1 // 一期
     </script>
   </head>
   <body>
     <div id="app"></div>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
   </body>
 </html>

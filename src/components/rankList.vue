@@ -3,11 +3,11 @@
     <div class="order-number">{{index+1}}</div>
     <div class="avatar-wrap">
       <figure class="avatar">
-        <img src="https://i.kcimg.cn/data/avatar/new/58/e87396178f5ca49351e3d47f31b45042_big.jpg-80x80.jpg" alt="">
+        <img :src="item.headimgurl" alt="">
       </figure>
     </div>
-    <div class="name">猪猪</div>
-    <div class="label">潍柴白丁</div>
+    <div class="name">{{item.nickname}}</div>
+    <div class="label">{{item.dan}}</div>
   </div>
 </template>
 
@@ -38,6 +38,8 @@ export default {
       color: #ffc000;
     }
     .avatar{
+      width: 84px;
+      height: 84px;
       border-radius: 50%;
       border:4px solid #03deff;
       overflow: hidden;
@@ -63,6 +65,12 @@ export default {
       line-height: 50px;
       margin-right: 50px;
     }
+    .avatar-wrap{
+      position: relative;
+      width: 92px;
+      height: 92px;
+      margin: 0 20px 0 10px;
+    }
   }
   .top-list{
     background: url('../../static/img/rank-list-one.jpg') no-repeat;
@@ -77,21 +85,15 @@ export default {
       width: 54px;
       height: 66px;
     }
-    .avatar-wrap{
-      position: relative;
-      width: 92px;
-      height: 92px;
-      margin: 0 20px 0 10px;
-      &::before{
-        content: '';
-        background: url('../../static/img/crown.png') no-repeat;
-        width: 48px;
-        height: 39px;
-        position: absolute;
-        top:-30px;
-        left: 50%;
-        margin-left: -24px;
-      }
+    .avatar-wrap::before{
+      content: '';
+      background: url('../../static/img/crown.png') no-repeat;
+      width: 48px;
+      height: 39px;
+      position: absolute;
+      top:-30px;
+      left: 50%;
+      margin-left: -24px;
     }
     .avatar{
       border-color: #ec8326;

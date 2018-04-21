@@ -5,8 +5,36 @@
 </template>
 
 <script>
+import XHR from './api'
 export default {
-  name: 'app'
+  name: 'app',
+  created () {
+    this.getUserinfo()
+  },
+  methods: {
+    getUserinfo () {
+      let href = location.href
+      if (!localStorage.getItem('userInfo')) {
+        if(href.indexOf('openid')> -1){
+          let openid = this.getQueryString('openid')
+          this.getUser(openid)
+        }else{
+          location.href = 'http://www.vr0101.com/auth'
+        }
+      }
+    },
+    getUser (uid) {
+      let json={
+        uid:`${uid}`
+      }
+      XHR.getUser(json).then((res) => {
+        let {data,status} = res.data
+        if(!status){
+          localStorage.setItem('userInfo',JSON.stringify(data))
+        }
+      })
+    }
+  }
 }
 </script>
 
@@ -14,6 +42,7 @@ export default {
 @import './mixin/publick.css';
 #app {
   height: 100%;
+  overflow: hidden;
 }
 .rule-btn{
   position: absolute;
