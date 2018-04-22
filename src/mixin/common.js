@@ -1,4 +1,5 @@
 import XHR from '../api'
+var wx = require('weixin-js-sdk');
 export default {
   computed: {
   },
@@ -43,27 +44,28 @@ export default {
       }
     },
     getQueryString(name) {
-      return this.$route.query[name]
+      /* eslint-disable */
+      return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || [, ''])[1].replace(/\+/g, '%20')) || null
+      /* eslint-enable */
     },
     getWxconfig() {
       XHR.getWechat({
-        url: encodeURIComponent(window.location.href.split('#')[0])
-      }).then(function (res) {
-        var wx = window.wx
+        url: `${window.location.href.split('#')[0]}`
+      }).then( (res)=> {
+        let { data, status } = res.data
         try {
           wx.config({
             debug: false,
-            appId: res.data.appId,
-            timestamp: res.data.timestamp,
-            nonceStr: res.data.nonceStr,
-            signature: res.data.signature,
+            appId: data.appId,
+            timestamp: data.timestamp,
+            nonceStr: data.nonceStr,
+            signature: data.signature,
             jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'menuItem:favorite', 'showAllNonBaseMenuItem', 'hideMenuItems']
           })
         } catch (e) {}
       })
     },
     hideshare() {
-      var wx = window.wx
       wx.ready(function () {
         wx.hideAllNonBaseMenuItem();
         wx.hideMenuItems({
@@ -80,8 +82,8 @@ export default {
         // 分享到朋友圈
         wx.onMenuShareTimeline({
           title: '答题王',
-          link: window.location.href,
-          imgUrl: '../../static/img/share.jpg',
+          link: 'http://www.vr0101.com/qa/index.html',
+          imgUrl: 'http://www.vr0101.com/qa/static/img/share.jpg',
           success: (res) => {
             console.log(_this.shopinfo)
           },
@@ -93,8 +95,8 @@ export default {
         wx.onMenuShareAppMessage({
           title: '答题王',
           desc: '答题王',
-          link: window.location.href,
-          imgUrl: '../../static/img/share.jpg',
+          link: 'http://www.vr0101.com/qa/index.html',
+          imgUrl: 'http://www.vr0101.com/qa/static/img/share.jpg',
           success: function () {
           },
           cancel: function () {

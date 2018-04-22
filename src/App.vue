@@ -16,10 +16,14 @@ export default {
       let href = location.href
       if (!localStorage.getItem('userInfo')) {
         if(href.indexOf('openid')> -1){
-          let openid = this.getQueryString('openid')
-          this.getUser(openid)
+          let json = {}
+          json['uid'] = this.getQueryString('openid')
+          json['nickname'] = this.getQueryString('nickname')
+          json['headimgurl'] = this.getQueryString('headimgurl')
+          localStorage.setItem('userInfo',JSON.stringify(json))
+          this.getUser(json['uid'])
         }else{
-          location.href = 'http://www.vr0101.com/auth'
+          // location.href = 'http://www.vr0101.com/auth'
         }
       }
     },

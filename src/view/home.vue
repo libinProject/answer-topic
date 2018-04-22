@@ -44,7 +44,7 @@ export default {
       this.toastState = true
       setTimeout(() => {
         this.toastState = false
-      }, 2000);
+      }, 2e3);
     },
     showRule(){
       this.showRuleStatus =! this.showRuleStatus

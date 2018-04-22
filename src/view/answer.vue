@@ -33,6 +33,7 @@ import answerOk from "../components/answer-ok"
 import countDownSecond from "../components/countDownSeconds"
 import storage from "../store/storage"
 import toast from "../components/toast"
+var wx = require('weixin-js-sdk');
 export default {
   data () {
     return {
@@ -43,9 +44,13 @@ export default {
       showRuleStatus: false, // 显示规则
       uid:'xiaohuihehe',// 用户uid
       showShareTips:false,
-      shareLink: '',
       toastMsg: '',
-      toastState:false
+      toastState:false,
+      shareData: {
+        link:'http://www.vr0101.com/qa/index.html',
+        des:'答题王',
+        title:'答题王'
+      }
     }
   },
   components: {
@@ -54,16 +59,26 @@ export default {
     answerOk,
     countDownSecond
   },
+  watch: {
+    rightAnswerCount: function (val, oldVal) {
+      if(val > 6){
+        let href = window.location.href.split('#')[0]
+        this.shareData['link'] = `${href}#/PkAnswer/${this.uid}/${this.rightAnswerCount *10}`
+        this.shareData['title']='pk答题王'
+        this.shareData['des']='pk答题王'
+        this.shareAnswer()
+      }
+    }
+  },
   created () {
     this.getWxconfig()
     this.hideshare()
     this.uid = this.$route.params.uid
-    this.shareLink = window.location.href
     this.getQuestion()
   },
   mounted () {
     this.scrollFooter()
-    this.share()
+    this.shareAnswer()
   },
   methods: {
     scrollFooter() {
@@ -80,7 +95,7 @@ export default {
       this.toastState = true
       setTimeout(() => {
         this.toastState = false
-      }, 2000);
+      }, 2e3);
     },
     getQuestion() {
       let json = {
@@ -104,7 +119,7 @@ export default {
         setTimeout(() => {
           this.lock = 'false'
           this.qsIndex++
-        }, 2000);
+        }, 2e3);
       }
     },
     // 提交成绩
@@ -121,19 +136,22 @@ export default {
         if(!status){
           this.setCookie('qa','isok')
           this.showToast('恭喜您提交成功')
-          this.$router.go(-1)
+          setTimeout(() => {
+            this.$router.go(-1)
+          }, 2e3);
         }
       })
     },
     uploadUser(phone){
-      let userinfo = storage.get('userInfo')
-      userinfo[phone] = phone
-      XHR.updateUser(userinfo).then((res) => {
-        let {status} = res.data
-        if(!status){
-          return true
-        }
-      })
+      let userinfo = JSON.parse(storage.get('userInfo'))
+      if (phone){
+        userinfo[phone] = phone
+        storage.set('userInfo',userinfo)
+        XHR.updateUser(userinfo).then((res) => {
+          let {status} = res.data
+          console.log(res.data)
+        })
+      }
     },
     stopCall () {
       this.qsIndex++
@@ -153,48 +171,45 @@ export default {
         console.log(res.data)
       })
     },
-    share () {
-      if (this.rightAnswerCount *10 >60) {
-        let href = window.location.href.split('#')[0]
-        this.shareLink = `${href}#/PkAnswer/${this.uid}/${this.rightAnswerCount *10}`
-      }
-      wx.ready(()=> {
+    shareAnswer () {
+      let that = this
+      wx.ready(() => {
         wx.showAllNonBaseMenuItem();
         wx.hideMenuItems({
-            menuList: ["menuItem:editTag","menuItem:delete","menuItem:copyUrl","menuItem:share:qq","menuItem:share:QZone","menuItem:openWithQQBrowser","menuItem:openWithSafari","menuItem:share:email","menuItem:share:weiboApp"] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3
+          menuList: ["menuItem:editTag", "menuItem:delete", "menuItem:copyUrl", "menuItem:share:qq", "menuItem:share:QZone", "menuItem:openWithQQBrowser", "menuItem:openWithSafari", "menuItem:share:email", "menuItem:share:weiboApp"] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3
         })
         // 分享到朋友圈
         wx.onMenuShareTimeline({
-            title: '答题王',
-            link: this.shareLink,
-            imgUrl: '../../static/img/share.jpg',
-            success:(res)=> {
-              let qaShare = this.getCookie('qaShare')
-              if (!qaShare) {
-                this.addIntegral(this.uid,1)
-                this.setCookie('qaShare','isok')
-              }
-            },
-            cancel: (res)=> {
-                // 用户取消分享后执行的回调函数
+          title: that.shareData.title,
+          link: that.shareData.link,
+          imgUrl: 'http://www.vr0101.com/qa/static/img/share.jpg',
+          success: (res) => {
+            let qaShare = that.getCookie('qaShare')
+            if (!qaShare) {
+              that.addIntegral(that.uid,1)
+              that.setCookie('qaShare','isok')
             }
+          },
+          cancel: (res) => {
+            // 用户取消分享后执行的回调函数
+          }
         })
         //分享给朋友
         wx.onMenuShareAppMessage({
-            title: '答题王',
-            desc: '答题王',
-            link: this.shareLink,
-            imgUrl:'../../static/img/share.jpg' ,
-            success: ()=> {
-              let qaShare = this.getCookie('qaShare')
+          title: that.shareData.title,
+          desc: that.shareData.des,
+          link: that.shareData.link,
+          imgUrl: 'http://www.vr0101.com/qa/static/img/share.jpg',
+          success: function () {
+            let qaShare = that.getCookie('qaShare')
               if (!qaShare) {
-                this.addIntegral(this.uid,1)
-                this.setCookie('qaShare','isok')
+                that.addIntegral(that.uid,1)
+                that.setCookie('qaShare','isok')
               }
-            },
-            cancel: ()=> {
-                // 用户取消分享后执行的回调函数
-            }
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
         })
       })
     }

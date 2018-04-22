@@ -15,26 +15,29 @@ export default {
     this.drawDoubleCircle()
     this.interval_id = setInterval(()=>{
       this.drawDoubleCircle()
-    }, 1000);
+    }, 1e3);
   },
   watch: {
     qsIndex: function (val, oldVal) {
-      // if (this.countDownSeconds>0) {
-      //   this.countDownSeconds = 12
-      //   this.currentSeconds = 12
-      //   this.drawDoubleCircle()
-      // }
-      if (val =='9') {
+      if (this.countDownSeconds>=11) {
+        this.countDownSeconds = 12
+        this.currentSeconds = 12
+        this.drawDoubleCircle()
+        this.interval_id = setInterval(()=>{
+          this.drawDoubleCircle()
+        }, 1e3);
+      }
+      if (val =='10') {
         clearInterval(this.interval_id);
       }
     },
     lock: function (val, oldVal) {
-       clearInterval(this.interval_id);
-       this.countDownSeconds = 12
-       this.currentSeconds = 12
-       this.interval_id = setInterval(()=>{
-        this.drawDoubleCircle()
-      }, 1000);
+       if(val!='false'){
+         clearInterval(this.interval_id);
+         this.countDownSeconds = 12
+         this.currentSeconds = 12
+         this.drawDoubleCircle()
+       }
     }
   },
   mounted () {
@@ -43,12 +46,9 @@ export default {
     drawDoubleCircle() {
       if (this.currentSeconds <= 0) {
         clearInterval(this.interval_id);
-        this.$emit('stopCall')
         this.countDownSeconds = 12
         this.currentSeconds = 12
-        this.interval_id = setInterval(()=>{
-          this.drawDoubleCircle()
-        }, 1000);
+        this.$emit('stopCall')
       }
       let canvasElement = document.getElementById('canvas');
       if (!canvasElement){

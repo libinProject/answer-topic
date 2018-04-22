@@ -24,6 +24,7 @@
       </ul>
     </div>
     <Rule v-show="showRuleStatus" :status="showRuleStatus" @showRule="showRule"></Rule>
+    <back></back>
   </div>
 </template>
 
@@ -31,6 +32,7 @@
 import XHR from '../api'
 import rankList from '../components/rankList.vue'
 import Rule from "../components/rule.vue"
+import back from "../components/back"
 export default {
   data () {
     return {
@@ -52,7 +54,8 @@ export default {
   },
   components: {
     rankList,
-    Rule
+    Rule,
+    back
   },
   created () {
     this.getWxconfig()
@@ -96,7 +99,7 @@ export default {
         }
       })
     },
-    allSccroll () {
+    allSccroll (e) {
      if (e.target.scrollTop + e.target.clientHeight > e.target.scrollHeight-100 && !this.allList.loading) {
         this.getTop(this.allList)
       }

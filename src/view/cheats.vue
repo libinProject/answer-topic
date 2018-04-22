@@ -10,24 +10,33 @@
           <span>潍坊斯太尔动力主营潍柴发动机、潍柴发电机组、潍柴原厂配件、潍柴气体机、潍柴专用机油等。</span>
         </div>
         <div class="footer">
-          <button>确定</button>
+          <button @click="toQa">确定</button>
         </div>
       </div>
     </div>
     <Rule v-show="showRuleStatus" :status="showRuleStatus" @showRule="showRule"></Rule>
+    <toast :msg="toastMsg" v-if="toastState"></toast>
+    <back></back>
   </div>
 </template>
 
 <script>
 import Rule from "../components/rule.vue"
+import toast from "../components/toast"
+import storage from "../store/storage"
+import back from "../components/back"
 export default {
   data () {
     return {
-      showRuleStatus: false
+      toastMsg: '',
+      showRuleStatus: false,
+      toastState:false
     }
   },
   components: {
-    Rule
+    Rule,
+    toast,
+    back
   },
   created () {
     this.getWxconfig()
@@ -39,6 +48,23 @@ export default {
   methods: {
     showRule(){
       this.showRuleStatus =! this.showRuleStatus
+    },
+    showToast (msg) {
+      if(this.toastState) return
+      this.toastMsg = msg
+      this.toastState = true
+      setTimeout(() => {
+        this.toastState = false
+      }, 2e3);
+    },
+    toQa () {
+      let todayQa = this.getCookie('qa')
+      if (todayQa) {
+        this.showToast('今天已经答过题了，请明天再来')
+      }else{
+        let user = JSON.parse(storage.get('userInfo'))
+        this.jump(`/answer/${user.uid}`)
+      }
     }
   }
 }
@@ -46,13 +72,15 @@ export default {
 
 <style scoped lang="less">
   .waaper{
-    flex:1;
-    display: flex;
     background: url('../../static/img/ranking-bg.jpg') 50% 50% no-repeat;
     background-size: cover; 
     padding: 0 20px;
     box-sizing: border-box;
     position: relative;
+    height: 100%;
+    overflow-y: auto;
+    height: 100%;
+      -webkit-overflow-scrolling: touch;
     &::before{
       content:'';
       display: block;
@@ -67,8 +95,7 @@ export default {
     } 
   }
   .main{
-    flex: 1;
-    overflow: hidden;
+    width: 710px;
     margin:245px auto 60px;
     border:2px dashed rgb(0, 160, 233);
     background-image: linear-gradient( -85deg, rgb(37,66,161) 10%, rgb(20,63,172) 90%);
@@ -77,11 +104,8 @@ export default {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    
     .cheats{
       width: 575px;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
       background: #f7d99c;
       border:3px solid #fbedd0;
       border-radius: 10px;

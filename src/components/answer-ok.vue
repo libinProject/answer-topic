@@ -5,7 +5,7 @@
     <input type="tel" 
       placeholder="输入您的手机号码" 
       maxlength="11" 
-      v-model="tel" @input="changeInput">
+      v-model="tel" @input="changeInput" v-if="!userinfo.phone">
     <span class="tips">首次答题用户需完善你的电话信息，以便在商城中完成积分兑换</span>
   </div>
   <button :disabled="disabled" type="submit" @click.prevent="submit">确定</button>
@@ -20,8 +20,12 @@ export default {
   data () {
     return {
       disabled:true,
+      userinfo:{},
       tel:''
     }
+  },
+  created () {
+     this.userinfo = JSON.parse(storage.get('userInfo'))
   },
   computed: {
     score: function () {
@@ -41,7 +45,6 @@ export default {
     changeInput() {
       if(this.tel.length > 10 && this.checkTel(this.tel)){
         this.disabled = false
-        console.log(this.disabled)
       }else{
         this.disabled = true
       }

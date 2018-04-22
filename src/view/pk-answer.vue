@@ -130,6 +130,18 @@ export default {
     getMyUser(){
       let user = storage.get('userInfo')
       this.myUserinfo = JSON.parse(user)
+      
+      let json={
+        uid:`${this.myUserinfo.uid}`
+      }
+      XHR.getUser(json).then((res) => {
+        let {data,status} = res.data
+        if(!status){
+          this.myUserinfo = data
+        }
+      })
+      // alert(this.shareUserinfo.uid+'发起人的uid')
+      // alert(this.myUserinfo.uid+'自己的uid')
       // 如果是相同用户跳转到首页
       if (this.shareUserinfo.uid == this.myUserinfo.uid) {
         this.jump('/')
@@ -169,7 +181,7 @@ export default {
       this.toastState = true
       setTimeout(() => {
         this.toastState = false
-      }, 2000);
+      }, 2e3);
     },
     pkResult(uid,integral){
       let json = {
@@ -209,7 +221,9 @@ export default {
           }else{
             this.showToast('恭喜您提交成功')
           }
-          this.jump('/')
+          setTimeout(() => {
+            this.jump('/')
+          }, 2e3);
         }
       })
     }

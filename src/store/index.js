@@ -3,26 +3,23 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
-    toast: {
-      toast: false,
-      toastLock: true
-    }
+    countDownSeconds:12,
+    currentSeconds:12
   },
   mutations: {
-    toggleToast (state) {
-      if (state.toast.toastLock) {
-        state.toast.toast = !state.toast.toast
-      }
+    countDownSeconds (state, b) {
+      state.countDownSeconds = b
+    },
+    currentSeconds (state, b) {
+      state.currentSeconds = b
     }
   },
   actions: {
-    toggleToast (context) {
-      context.commit('toggleToast')
-    }
-  },
-  getters: {
-    toastState: state => {
-      return state.toast.toast
+    countDownSeconds (context, b) {
+      context.commit('countDownSeconds', b)
+    },
+    currentSeconds (context, b) {
+      context.commit('currentSeconds', b)
     }
   }
 })
