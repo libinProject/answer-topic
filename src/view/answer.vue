@@ -22,6 +22,7 @@
     <Rule v-show="showRuleStatus" :status="showRuleStatus" @showRule="showRule"></Rule>
     <div class="wechat-tips" v-if="showShareTips" @click="tipShare"></div>
     <toast :msg="toastMsg" v-if="toastState"></toast>
+    <loading-img v-if="submitStatus"></loading-img>
   </div>
 </template>
 
@@ -33,6 +34,7 @@ import answerOk from "../components/answer-ok"
 import countDownSecond from "../components/countDownSeconds"
 import storage from "../store/storage"
 import toast from "../components/toast"
+import loadingImg from "../components/loading-img"
 var wx = require('weixin-js-sdk');
 export default {
   data () {
@@ -46,6 +48,7 @@ export default {
       showShareTips:false,
       toastMsg: '',
       toastState:false,
+      submitStatus:false, // 提交状态
       shareData: {
         link:'http://www.vr0101.com/qa/index.html',
         des:'答题王',
@@ -57,6 +60,8 @@ export default {
     Rule,
     answer,
     answerOk,
+    toast,
+    loadingImg,
     countDownSecond
   },
   watch: {
@@ -95,6 +100,7 @@ export default {
       this.toastState = true
       setTimeout(() => {
         this.toastState = false
+        this.$router.go(-1)
       }, 2e3);
     },
     getQuestion() {
@@ -124,32 +130,33 @@ export default {
     },
     // 提交成绩
     submit (phone) {
-      this.uploadUser(phone)
+      this.submitStatus = true
       let json = {
         batch:window.batch,
         uid:this.uid,
         project:'king_of_answer',
         rightAnswerCount :this.rightAnswerCount
       }
+      console.log(json,'提交成绩传参')
       XHR.submitAnswer(json).then((res) => {
         let {status} = res.data
+        console.log(res.data, '提交成绩返回结果')
         if(!status){
+          this.submitStatus = false
+          this.uploadUser(phone)
           this.setCookie('qa','isok')
           this.showToast('恭喜您提交成功')
-          setTimeout(() => {
-            this.$router.go(-1)
-          }, 2e3);
         }
       })
     },
     uploadUser(phone){
       let userinfo = JSON.parse(storage.get('userInfo'))
-      if (phone){
-        userinfo[phone] = phone
+      if (phone!=''){
+        userinfo['phone'] = phone
         storage.set('userInfo',userinfo)
         XHR.updateUser(userinfo).then((res) => {
           let {status} = res.data
-          console.log(res.data)
+          console.log(res.data,'添加积分返回')
         })
       }
     },

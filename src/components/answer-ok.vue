@@ -21,6 +21,7 @@ export default {
     return {
       disabled:true,
       userinfo:{},
+      lock:false,
       tel:''
     }
   },
@@ -50,7 +51,10 @@ export default {
       }
     },
     submit () {
-      this.$emit('submit',this.tel)
+      if(!this.lock){
+        this.lock = true
+        this.$emit('submit',this.tel)
+      }
     },
     tipShare(){
       this.$emit('tipShare')

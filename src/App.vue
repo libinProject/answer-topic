@@ -23,7 +23,7 @@ export default {
           localStorage.setItem('userInfo',JSON.stringify(json))
           this.getUser(json['uid'])
         }else{
-          // location.href = 'http://www.vr0101.com/auth'
+          location.href = 'http://www.vr0101.com/auth'
         }
       }
     },
