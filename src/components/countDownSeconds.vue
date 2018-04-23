@@ -18,7 +18,7 @@ export default {
     }, 1e3);
   },
   watch: {
-    qsIndex: function (val, oldVal) {
+    qsIndex (val, oldVal) {
       if (this.countDownSeconds>=11) {
         this.countDownSeconds = 12
         this.currentSeconds = 12
@@ -31,7 +31,7 @@ export default {
         clearInterval(this.interval_id);
       }
     },
-    lock: function (val, oldVal) {
+    lock (val, oldVal) {
        if(val!='false'){
          clearInterval(this.interval_id);
          this.countDownSeconds = 12

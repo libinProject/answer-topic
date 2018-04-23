@@ -29,7 +29,7 @@ export default {
      this.userinfo = JSON.parse(storage.get('userInfo'))
   },
   computed: {
-    score: function () {
+    score () {
       return this.rightAnswerCount * 10
     }
   },

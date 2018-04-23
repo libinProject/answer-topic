@@ -82,7 +82,7 @@ export default {
     countDownSecond
   },
   watch: {
-    qsIndex: function (val, oldVal) {
+    qsIndex (val, oldVal) {
       if(val == '10' ){
         if(this.rightAnswerCount *10 > this.shareUserinfo.fen){
           this.pkStatus='1'
@@ -98,8 +98,9 @@ export default {
     this.getQuestion()
     this.shareUserinfo.uid = this.$route.params.uid
     this.shareUserinfo.fen = this.$route.params.fen
-    this.getShareUser()
+    this.getShareUser(this.$route.params.uid)
     this.getMyUser()
+    console.log(this.$route.params,'路由')
     // 判断是否为今天pk过的用户
     this.getIsPkUser(this.shareUserinfo.uid)
   },
@@ -116,9 +117,9 @@ export default {
         }
       }
     },
-    getShareUser () {
+    getShareUser (uid) {
       let json={
-        uid:`${this.shareUserinfo.uid}`
+        uid:`${uid}`
       }
       XHR.getUser(json).then((res) => {
         let {data,status} = res.data
@@ -130,22 +131,24 @@ export default {
     getMyUser(){
       let user = storage.get('userInfo')
       this.myUserinfo = JSON.parse(user)
-      
-      let json={
-        uid:`${this.myUserinfo.uid}`
-      }
-      XHR.getUser(json).then((res) => {
-        let {data,status} = res.data
-        if(!status){
-          this.myUserinfo = data
+      if (this.shareUserinfo.uid == this.myUserinfo.uid) {
+        this.jump('/')
+      }else{
+        let json={
+          uid:`${this.myUserinfo.uid}`
         }
-      })
+        XHR.getUser(json).then((res) => {
+          let {data,status} = res.data
+          if(!status){
+            this.myUserinfo = data
+          }
+        })
+      }
+      console.log(this.shareUserinfo.uid, '发起人的uid');
+      console.log(this.myUserinfo.uid, '自己的uid');
       // alert(this.shareUserinfo.uid+'发起人的uid')
       // alert(this.myUserinfo.uid+'自己的uid')
       // 如果是相同用户跳转到首页
-      if (this.shareUserinfo.uid == this.myUserinfo.uid) {
-        this.jump('/')
-      }
     },
     getQuestion() {
       let json = {

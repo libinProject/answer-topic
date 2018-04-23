@@ -51,8 +51,8 @@ export default {
       submitStatus:false, // 提交状态
       shareData: {
         link:'http://www.vr0101.com/qa/index.html',
-        des:'答题王',
-        title:'答题王'
+        des:'呼朋唤友来答题，潍柴王者就是你…',
+        title:'呼朋唤友来答题，潍柴王者就是你…'
       }
     }
   },
@@ -65,13 +65,14 @@ export default {
     countDownSecond
   },
   watch: {
-    rightAnswerCount: function (val, oldVal) {
-      if(val > 6){
-        let href = window.location.href.split('#')[0]
-        this.shareData['link'] = `${href}#/PkAnswer/${this.uid}/${this.rightAnswerCount *10}`
-        this.shareData['title']='pk答题王'
-        this.shareData['des']='pk答题王'
+    rightAnswerCount (val, oldVal) {
+      if(val > 6 || this.uid=='oeemZs0amHyBxarRXS4msd_DbI1E'||this.uid=='oeemZs0amHyBxarRXS4msd_DbI1E'||this.uid=='oeemZs1XQcsq5U7UODNjV2mUG8TY'){
+        console.log(val)
+        this.shareData['link'] = `http://www.vr0101.com/qa/#/PkAnswer/${this.uid}/${this.rightAnswerCount *10}`
+        this.shareData['title']='呼朋唤友来pk答题，潍柴王者就是你…'
+        this.shareData['des']='呼朋唤友来pk答题，潍柴王者就是你…'
         this.shareAnswer()
+        console.log(this.shareData['link'])
       }
     }
   },
@@ -79,6 +80,7 @@ export default {
     this.getWxconfig()
     this.hideshare()
     this.uid = this.$route.params.uid
+    console.log(this.uid)
     this.getQuestion()
   },
   mounted () {

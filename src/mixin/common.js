@@ -81,7 +81,8 @@ export default {
         })
         // 分享到朋友圈
         wx.onMenuShareTimeline({
-          title: '答题王',
+          title: '呼朋唤友来答题，潍柴王者就是你…',
+
           link: 'http://www.vr0101.com/qa/index.html',
           imgUrl: 'http://www.vr0101.com/qa/static/img/share.jpg',
           success: (res) => {
@@ -93,8 +94,8 @@ export default {
         })
         //分享给朋友
         wx.onMenuShareAppMessage({
-          title: '答题王',
-          desc: '答题王',
+          title: '呼朋唤友来答题，潍柴王者就是你…',
+          desc: '呼朋唤友来答题，潍柴王者就是你…',
           link: 'http://www.vr0101.com/qa/index.html',
           imgUrl: 'http://www.vr0101.com/qa/static/img/share.jpg',
           success: function () {
