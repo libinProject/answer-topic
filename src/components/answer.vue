@@ -4,7 +4,7 @@
     <h4 class="title">{{ask.question}}?</h4>
     <div :class="['ask',lock==index&&index==ask.answer?'yes':'',lock==index&&index!=ask.answer?'err':'']" 
       v-for="(item, index) in ask.answerList" 
-      :key="index" @click="select(index)">{{item}}</div>
+      :key="index" @click="select(index,item)">{{item}}</div>
     <div class="tip">点击选项，完成答题</div>
   </div>
 </template>
@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     select(index){
-     this.$emit('select', index)
+     this.$emit('select', index, this.ask)
     }
   }
 }

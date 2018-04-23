@@ -64,6 +64,7 @@ export default {
       rightAnswerCount:0, // 答对题目数量
       shareUserinfo:{},
       myUserinfo: {},
+      errAnswerList:[], //所有答错题目id
       isPkUser:{}, // pk过的用户
       todayPkStatus:'false',
       toastMsg: '', // toast内容
@@ -150,6 +151,7 @@ export default {
     getQuestion() {
       let json = {
         batch:window.batch,
+        type:2,
         project:'king_of_answer'
       }
       XHR.getQs(json).then((res) => {
@@ -159,9 +161,10 @@ export default {
         }
       })
     },
-    select (index) {
+    select (index,item) {
       if(this.lock == 'false'){
         this.lock = index
+        this.errAnswerList.push(item.id)
         // 计算正确答题个数
         if (index == this.ask[this.qsIndex].answer) {
           this.rightAnswerCount++
@@ -198,6 +201,7 @@ export default {
       let json = {
         batch:window.batch,
         uid:this.myUserinfo.uid,
+        errAnswerList: this.errAnswerList,
         project:'king_of_answer',
         rightAnswerCount :this.rightAnswerCount
       }

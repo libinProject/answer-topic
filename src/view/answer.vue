@@ -48,6 +48,7 @@ export default {
       showShareTips:false,
       toastMsg: '',
       toastState:false,
+      errAnswerList:[], //答错题目id
       submitStatus:false, // 提交状态
       shareData: {
         link:'http://www.vr0101.com/qa/index.html',
@@ -106,6 +107,7 @@ export default {
     getQuestion() {
       let json = {
         batch:1,
+        type:1,
         project:'king_of_answer'
       }
       XHR.getQs(json).then((res) => {
@@ -115,9 +117,10 @@ export default {
         }
       })
     },
-    select (index) {
+    select (index,item) {
       if(this.lock == 'false'){
         this.lock = index
+        this.errAnswerList.push(item.id)
         // 计算正确答题个数
         if (index == this.ask[this.qsIndex].answer) {
           this.rightAnswerCount++
@@ -135,6 +138,7 @@ export default {
         batch:window.batch,
         uid:this.uid,
         project:'king_of_answer',
+        errAnswerList: this.errAnswerList,
         rightAnswerCount :this.rightAnswerCount
       }
       XHR.submitAnswer(json).then((res) => {
