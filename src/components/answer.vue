@@ -2,7 +2,7 @@
  <div class="answer">
     <header>第{{num[qsIndex]}}题</header>
     <h4 class="title">{{ask.question}}?</h4>
-    <div :class="['ask',lock!='false'&&index==ask.answer?'yes':'',lock==index&&index!=ask.answer?'err':'']" 
+    <div :class="['ask',lock==index&&index==ask.answer?'yes':'',lock==index&&index!=ask.answer?'err':'']" 
       v-for="(item, index) in ask.answerList" 
       :key="index" @click="select(index)">{{item}}</div>
     <div class="tip">点击选项，完成答题</div>

@@ -67,7 +67,6 @@ export default {
   watch: {
     rightAnswerCount (val, oldVal) {
       if(val > 6 || this.uid=='oeemZs0amHyBxarRXS4msd_DbI1E'||this.uid=='oeemZs0amHyBxarRXS4msd_DbI1E'||this.uid=='oeemZs1XQcsq5U7UODNjV2mUG8TY'){
-        console.log(val)
         this.shareData['link'] = `http://www.vr0101.com/qa/#/PkAnswer/${this.uid}/${this.rightAnswerCount *10}`
         this.shareData['title']='呼朋唤友来pk答题，潍柴王者就是你…'
         this.shareData['des']='呼朋唤友来pk答题，潍柴王者就是你…'
@@ -80,7 +79,6 @@ export default {
     this.getWxconfig()
     this.hideshare()
     this.uid = this.$route.params.uid
-    console.log(this.uid)
     this.getQuestion()
   },
   mounted () {
@@ -139,10 +137,8 @@ export default {
         project:'king_of_answer',
         rightAnswerCount :this.rightAnswerCount
       }
-      console.log(json,'提交成绩传参')
       XHR.submitAnswer(json).then((res) => {
         let {status} = res.data
-        console.log(res.data, '提交成绩返回结果')
         if(!status){
           this.submitStatus = false
           this.uploadUser(phone)
@@ -158,7 +154,6 @@ export default {
         storage.set('userInfo',userinfo)
         XHR.updateUser(userinfo).then((res) => {
           let {status} = res.data
-          console.log(res.data,'添加积分返回')
         })
       }
     },

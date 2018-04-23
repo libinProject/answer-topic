@@ -100,7 +100,6 @@ export default {
     this.shareUserinfo.fen = this.$route.params.fen
     this.getShareUser(this.$route.params.uid)
     this.getMyUser()
-    console.log(this.$route.params,'路由')
     // 判断是否为今天pk过的用户
     this.getIsPkUser(this.shareUserinfo.uid)
   },
@@ -146,8 +145,6 @@ export default {
       }
       console.log(this.shareUserinfo.uid, '发起人的uid');
       console.log(this.myUserinfo.uid, '自己的uid');
-      // alert(this.shareUserinfo.uid+'发起人的uid')
-      // alert(this.myUserinfo.uid+'自己的uid')
       // 如果是相同用户跳转到首页
     },
     getQuestion() {
