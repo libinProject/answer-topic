@@ -120,7 +120,7 @@ export default {
     select (index,item) {
       if(this.lock == 'false'){
         this.lock = index
-        this.errAnswerList.push(item.id)
+        // this.errAnswerList.push(item.id)
         // 计算正确答题个数
         if (index == this.ask[this.qsIndex].answer) {
           this.rightAnswerCount++
@@ -138,7 +138,7 @@ export default {
         batch:window.batch,
         uid:this.uid,
         project:'king_of_answer',
-        errAnswerList: this.errAnswerList,
+        // errAnswerList: this.errAnswerList,
         rightAnswerCount :this.rightAnswerCount
       }
       XHR.submitAnswer(json).then((res) => {
