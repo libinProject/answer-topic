@@ -6,7 +6,7 @@
       placeholder="输入您的手机号码" 
       maxlength="11" 
       v-model="tel" @input="changeInput" v-if="!userinfo.phone">
-    <span class="tips">首次答题用户需完善你的电话信息，以便在商城中完成积分兑换</span>
+    <span class="tips">首次答题用户需完善你的电话信息，以便后续礼品发放</span>
   </div>
   <button :disabled="disabled" type="submit" @click.prevent="submit">确定</button>
   <button type="button" @click="tipShare" class="share" v-if="score>70">邀好友挑战</button>

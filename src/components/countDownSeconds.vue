@@ -7,8 +7,8 @@ export default {
   props:['qsIndex','lock'],
   data () {
     return {
-      countDownSeconds:12,
-      currentSeconds:12
+      countDownSeconds:15,
+      currentSeconds:15
     }
   },
   created () {
@@ -20,8 +20,8 @@ export default {
   watch: {
     qsIndex (val, oldVal) {
       if (this.countDownSeconds>=11) {
-        this.countDownSeconds = 12
-        this.currentSeconds = 12
+        this.countDownSeconds = 15
+        this.currentSeconds = 15
         this.drawDoubleCircle()
         this.interval_id = setInterval(()=>{
           this.drawDoubleCircle()
@@ -34,8 +34,8 @@ export default {
     lock (val, oldVal) {
        if(val!='false'){
          clearInterval(this.interval_id);
-         this.countDownSeconds = 12
-         this.currentSeconds = 12
+         this.countDownSeconds = 15
+         this.currentSeconds = 15
          this.drawDoubleCircle()
        }
     }
@@ -46,8 +46,8 @@ export default {
     drawDoubleCircle() {
       if (this.currentSeconds <= 0) {
         clearInterval(this.interval_id);
-        this.countDownSeconds = 12
-        this.currentSeconds = 12
+        this.countDownSeconds = 15
+        this.currentSeconds = 15
         this.$emit('stopCall')
       }
       let canvasElement = document.getElementById('canvas');

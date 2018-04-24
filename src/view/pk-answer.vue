@@ -103,6 +103,7 @@ export default {
     this.getMyUser()
     // 判断是否为今天pk过的用户
     this.getIsPkUser(this.shareUserinfo.uid)
+    this.checkPkCount()
   },
   mounted () {
     this.share()
@@ -172,7 +173,7 @@ export default {
         setTimeout(() => {
           this.lock = 'false'
           this.qsIndex++
-        }, 500);
+        }, 1e3);
       }
     },
     stopCall () {
@@ -197,6 +198,21 @@ export default {
         console.log(res.data)
       })
     },
+    addPkCount() { // 记录pk次数记录
+      let pkCount = this.getCookie('pkCount')
+      if(pkCount){
+        pkCount = parseInt(pkCount)+1
+        this.setCookie('pkCount', pkCount)
+      }else{
+        this.setCookie('pkCount',1)
+      }
+    },
+    checkPkCount () { // 判断pk次数是否超过4次
+      let pkCount = this.getCookie('pkCount')
+      if(parseInt(pkCount)>4){
+        this.jump('/')
+      }
+    },
     submit(){
       let json = {
         batch:window.batch,
@@ -215,6 +231,7 @@ export default {
           }
           let ispkUid = JSON.stringify(this.isPkUser)
           this.setCookie('isPkUser', ispkUid)
+          this.addPkCount()
           if(this.rightAnswerCount *10 > this.shareUserinfo.fen){
             this.pkResult(this.myUserinfo.uid,2)
           }else{

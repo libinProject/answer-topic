@@ -69,8 +69,8 @@ export default {
     rightAnswerCount (val, oldVal) {
       if(val > 6 || this.uid=='oeemZs0amHyBxarRXS4msd_DbI1E'||this.uid=='oeemZs0amHyBxarRXS4msd_DbI1E'||this.uid=='oeemZs1XQcsq5U7UODNjV2mUG8TY'){
         this.shareData['link'] = `http://www.vr0101.com/qa/#/PkAnswer/${this.uid}/${this.rightAnswerCount *10}`
-        this.shareData['title']='呼朋唤友来pk答题，潍柴王者就是你…'
-        this.shareData['des']='呼朋唤友来pk答题，潍柴王者就是你…'
+        this.shareData['title']='***觉得这个游戏你肯定玩不到**分，不服来战！'
+        this.shareData['des']='***觉得这个游戏你肯定玩不到**分，不服来战！'
         this.shareAnswer()
         console.log(this.shareData['link'])
       }
@@ -128,7 +128,7 @@ export default {
         setTimeout(() => {
           this.lock = 'false'
           this.qsIndex++
-        }, 2e3);
+        }, 1e3);
       }
     },
     // 提交成绩
