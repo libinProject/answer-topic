@@ -80,6 +80,7 @@ export default {
     answer,
     pkOk,
     pkErr,
+    toast,
     countDownSecond
   },
   watch: {
@@ -209,7 +210,7 @@ export default {
     },
     checkPkCount () { // 判断pk次数是否超过4次
       let pkCount = this.getCookie('pkCount')
-      if(parseInt(pkCount)>4){
+      if(parseInt(pkCount)>3){
         this.jump('/')
       }
     },
