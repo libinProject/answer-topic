@@ -74,6 +74,9 @@ export default {
       })
     },
     share () {
+      let user = localStorage.getItem('userInfo')
+      user = JSON.parse(user)
+      let time = new Date().toLocaleDateString()
       wx.ready(() => {
         wx.showAllNonBaseMenuItem();
         wx.hideMenuItems({
@@ -82,8 +85,7 @@ export default {
         // 分享到朋友圈
         wx.onMenuShareTimeline({
           title: '呼朋唤友来答题，潍柴王者就是你…',
-
-          link: 'http://www.vr0101.com/qa/index.html',
+          link: `http://www.vr0101.com/qa/index.html?shareUid=${user.uid}&time=${time}`,
           imgUrl: 'http://www.vr0101.com/qa/static/img/share.jpg',
           success: (res) => {
             console.log(_this.shopinfo)
@@ -96,7 +98,7 @@ export default {
         wx.onMenuShareAppMessage({
           title: '呼朋唤友来答题，潍柴王者就是你…',
           desc: '呼朋唤友来答题，潍柴王者就是你…',
-          link: 'http://www.vr0101.com/qa/index.html',
+          link: `http://www.vr0101.com/qa/index.html?shareUid=${user.uid}&time=${time}`,
           imgUrl: 'http://www.vr0101.com/qa/static/img/share.jpg',
           success: function () {
           },

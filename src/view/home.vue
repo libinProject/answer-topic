@@ -32,12 +32,21 @@ export default {
   created () {
     this.getWxconfig()
     this.hideshare()
+    this.getShare()
     // this.jump(`/PkAnswer/xiaohuihehe/60`)
   },
   mounted () {
     this.share()
   },
   methods: {
+    getShare(){
+      let shareUid = this.getQueryString('shareUid')
+      let linkTime = this.getQueryString('time')
+      let time = new Date().toLocaleDateString()
+      if(shareUid && linkTime && (linkTime==time)){
+        this.setCookie('shareUid',shareUid)
+      }
+    },
     showToast (msg) {
       if(this.toastState) return
       this.toastMsg = msg

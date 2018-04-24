@@ -64,7 +64,6 @@ export default {
       rightAnswerCount:0, // 答对题目数量
       shareUserinfo:{},
       myUserinfo: {},
-      errAnswerList:[], //所有答错题目id
       isPkUser:{}, // pk过的用户
       todayPkStatus:'false',
       toastMsg: '', // toast内容
@@ -73,7 +72,7 @@ export default {
   },
   computed: {
     score: function () {
-      return this.rightAnswerCount * 10
+      return this.rightAnswerCount
     }
   },
   components: {
@@ -86,7 +85,7 @@ export default {
   watch: {
     qsIndex (val, oldVal) {
       if(val == '10' ){
-        if(this.rightAnswerCount *10 > this.shareUserinfo.fen){
+        if(this.rightAnswerCount > this.shareUserinfo.fen){
           this.pkStatus='1'
         }else{
           this.pkStatus='2'
@@ -166,7 +165,6 @@ export default {
     select (index,item) {
       if(this.lock == 'false'){
         this.lock = index
-        // this.errAnswerList.push(item.id)
         // 计算正确答题个数
         if (index == this.ask[this.qsIndex].answer) {
           this.rightAnswerCount++
@@ -218,7 +216,6 @@ export default {
       let json = {
         batch:window.batch,
         uid:this.myUserinfo.uid,
-        // errAnswerList: this.errAnswerList,
         project:'king_of_answer',
         rightAnswerCount :this.rightAnswerCount
       }
@@ -228,12 +225,12 @@ export default {
           let InitiatorUid = this.shareUserinfo.uid
           this.isPkUser[InitiatorUid] = {
             status: this.pkStatus,
-            myFen: this.rightAnswerCount *10
+            myFen: this.rightAnswerCount
           }
           let ispkUid = JSON.stringify(this.isPkUser)
           this.setCookie('isPkUser', ispkUid)
           this.addPkCount()
-          if(this.rightAnswerCount *10 > this.shareUserinfo.fen){
+          if(this.rightAnswerCount > this.shareUserinfo.fen){
             this.pkResult(this.myUserinfo.uid,2)
           }else{
             this.pkResult(this.shareUserinfo.uid,1)

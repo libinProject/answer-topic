@@ -68,7 +68,7 @@ export default {
   watch: {
     rightAnswerCount (val, oldVal) {
       if(val > 6 || this.uid=='oeemZs0amHyBxarRXS4msd_DbI1E'||this.uid=='oeemZs0amHyBxarRXS4msd_DbI1E'||this.uid=='oeemZs1XQcsq5U7UODNjV2mUG8TY'){
-        this.shareData['link'] = `http://www.vr0101.com/qa/#/PkAnswer/${this.uid}/${this.rightAnswerCount *10}`
+        this.shareData['link'] = `http://www.vr0101.com/qa/#/PkAnswer/${this.uid}/${this.rightAnswerCount}`
         this.shareData['title']='***觉得这个游戏你肯定玩不到**分，不服来战！'
         this.shareData['des']='***觉得这个游戏你肯定玩不到**分，不服来战！'
         this.shareAnswer()
@@ -120,7 +120,11 @@ export default {
     select (index,item) {
       if(this.lock == 'false'){
         this.lock = index
-        // this.errAnswerList.push(item.id)
+        if(index!=item.answer){
+          this.errAnswerList.push(1)
+        }else{
+          this.errAnswerList.push(0)
+        }
         // 计算正确答题个数
         if (index == this.ask[this.qsIndex].answer) {
           this.rightAnswerCount++
@@ -133,13 +137,18 @@ export default {
     },
     // 提交成绩
     submit (phone) {
+      let answerList = this.errAnswerList.join(',')
       this.submitStatus = true
       let json = {
         batch:window.batch,
         uid:this.uid,
         project:'king_of_answer',
-        // errAnswerList: this.errAnswerList,
+        answerList,
         rightAnswerCount :this.rightAnswerCount
+      }
+      let shareUid = this.getCookie('shareUid')
+      if(shareUid){
+        json['shareUid'] = shareUid
       }
       XHR.submitAnswer(json).then((res) => {
         let {status} = res.data

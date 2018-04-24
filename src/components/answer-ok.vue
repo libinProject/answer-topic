@@ -9,7 +9,7 @@
     <span class="tips">首次答题用户需完善你的电话信息，以便后续礼品发放</span>
   </div>
   <button :disabled="disabled" type="submit" @click.prevent="submit">确定</button>
-  <button type="button" @click="tipShare" class="share" v-if="score>70">邀好友挑战</button>
+  <button type="button" @click="tipShare" class="share" v-if="score>6">邀好友挑战</button>
 
 </form>
 </template>
@@ -30,7 +30,7 @@ export default {
   },
   computed: {
     score () {
-      return this.rightAnswerCount * 10
+      return this.rightAnswerCount
     }
   },
   methods: {
