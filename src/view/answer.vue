@@ -171,6 +171,7 @@ export default {
       }
     },
     stopCall () {
+      this.errAnswerList.push(1)
       this.qsIndex++
     },
     tipShare(){
