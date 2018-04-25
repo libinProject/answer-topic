@@ -152,9 +152,10 @@ export default {
     getQuestion() {
       let json = {
         batch:window.batch,
-        type:2,
         project:'king_of_answer'
       }
+      let todayAnswer = this.getCookie('qa')
+      json['type'] = todayAnswer ? 2 : 1
       XHR.getQs(json).then((res) => {
         let {data,status} = res.data
         if(!status){

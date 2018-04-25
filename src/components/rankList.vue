@@ -7,17 +7,19 @@
       </figure>
     </div>
     <div class="name">{{item.nickname}}</div>
-    <div class="label">{{item.dan}}</div>
+    <div class="label" v-if="type!=1">{{item.dan}}</div>
   </div>
 </template>
 
 <script>
 export default {
-  props:['index','item'],
+  props:['index','item','type'],
   data () {
     return {
       msg: ''
     }
+  },
+  created () {
   }
 }
 </script>

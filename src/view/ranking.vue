@@ -9,7 +9,7 @@
       <!-- 期榜 -->
       <ul class="list-box" v-show="tabs==0" @scroll="batchSccroll">
           <li v-for="(item,index) in batch.list" :key="index">
-            <rankList :item='item' :index='index'></rankList>
+            <rankList :item='item' :index='index' type="1"></rankList>
           </li>
           <li class="null" v-if="!batch.list.length">暂无数据</li>
           <li class="loding" v-else>{{batch.end?'已经到底了':'正在加载中'}}</li>
@@ -17,7 +17,7 @@
       <!-- 总榜 -->
       <ul class="list-box" v-show="tabs==1" @scroll="allSccroll">
           <li v-for="(item,index) in allList.list" :key="index">
-            <rankList :item='item' :index='index'></rankList>
+            <rankList :item='item' :index='index' type=""></rankList>
           </li>
           <li class="null" v-if="!allList.list.length">暂无数据</li>
           <li class="loding" v-else>{{batch.end?'已经到底了':'正在加载中'}}</li>
