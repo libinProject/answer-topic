@@ -1,17 +1,11 @@
 <template>
  <div class="answer">
     <header>第{{num[qsIndex]}}题</header>
-    <div class="content">
-      <ul class="wraper" :style="`transform: translate3d(-${625 * qsIndex}px, 0px, 0px);transition-duration: 0;`">
-        <li v-for="(item,indexNum) in ask" :key="item.id" v-if="indexNum<=qsIndex">
-          <h4 class="title">{{item.question}}?</h4>
-          <div :class="['ask',lock==index&&index==item.answer?'yes':'',lock==index&&index!=item.answer?'err':'']" 
-            v-for="(answer, index) in item.answerList" 
-            :key="index" @click="select(index,item)">{{answer}}</div>
-        </li>
-      </ul>
-      <div class="tip">点击选项，完成答题</div>
-    </div>
+    <h4 class="title">{{ask.question}}?</h4>
+    <div :class="['ask',lock==index&&index==ask.answer?'yes':'',lock==index&&index!=ask.answer?'err':'']" 
+      v-for="(item, index) in ask.answerList" 
+      :key="index" @click="select(index,item)">{{item}}</div>
+    <div class="tip">点击选项，完成答题</div>
   </div>
 </template>
 
@@ -26,38 +20,14 @@ export default {
   created () {
   },
   methods: {
-    select(index,answer){
-     this.$emit('select', index, answer)
+    select(index){
+     this.$emit('select', index, this.ask)
     }
   }
 }
 </script>
 
 <style scoped lang="less">
-  .content{
-    width: 625px;
-    min-height: 200px;
-    position: relative;
-    overflow: hidden;
-    .wraper{
-      width: 1000%;
-      height: 100%;
-      display: flex;
-      transform: translate3d(0px, 0px, 0px);
-      transition-duration: 300ms;
-      &.slide1{
-        transform: translate3d(-625px, 0px, 0px);
-        transition-duration: 0;
-      }
-      li{
-        width: 625px;
-        min-height: 200px;
-        display: flex;
-        flex-direction: column;
-        float: left;
-      }
-    }
-  }
     header{
       height: 90px;
       line-height: 90px;
@@ -75,7 +45,6 @@ export default {
       text-align: justify;
     }
     .ask{
-      clear: both;
       border-radius: 48px;
       width: 488px;
       min-height: 97px;

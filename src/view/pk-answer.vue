@@ -32,7 +32,7 @@
       </div>
     </section>
     <div class="answer-box" v-if="pkStatus==0">
-      <answer :ask="ask[qsIndex]" :qsIndex="qsIndex" :lock="lock" v-if="ask[qsIndex]" @select="select"></answer>
+      <answer :ask="ask" :qsIndex="qsIndex" :lock="lock" v-if="ask.length" @select="select"></answer>
     </div>
     <pk-ok v-if="pkStatus==1" 
       :todayPkStatus="todayPkStatus" 
@@ -167,7 +167,7 @@ export default {
       if(this.lock == 'false'){
         this.lock = index
         // 计算正确答题个数
-        if (index == this.ask[this.qsIndex].answer) {
+        if (index == item.answer) {
           this.rightAnswerCount++
         }
         setTimeout(() => {

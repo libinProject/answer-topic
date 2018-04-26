@@ -21,7 +21,7 @@ class XHR {
     return fetch({
       url: `${URLS}/submitAnswer`,
       body: json,
-      type: 'GET'
+      type: 'POST'
     })
   }
   // 更新用户信息
@@ -29,7 +29,7 @@ class XHR {
     return fetch({
       url: `${URLS}/updateUser`,
       body: json,
-      type: 'GET'
+      type: 'POST'
     })
   }
 
@@ -47,7 +47,7 @@ class XHR {
     return fetch({
       url: `${URLS}/addIntegral`,
       body: json,
-      type: 'GET'
+      type: 'POST'
     })
   }
   // getTop 获取排行榜
@@ -58,7 +58,7 @@ class XHR {
       type: 'GET'
     })
   }
-  // getTop 获取排行榜
+  // 获取微信sdk
   getWechat (json) {
     return fetch({
       url: `${URLS}/getsignature`,

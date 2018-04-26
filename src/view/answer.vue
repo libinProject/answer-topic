@@ -10,7 +10,7 @@
           @stopCall="stopCall">
          </countDownSecond>
         </div>  
-        <answer :ask="ask[qsIndex]" :qsIndex="qsIndex" :lock="lock" v-if="ask[qsIndex]" @select="select"></answer>
+        <answer :ask="ask" :qsIndex="qsIndex" :lock="lock" v-if="ask.length" @select="select"></answer>
       </div>
       <answerOk 
         v-if="qsIndex==10"
