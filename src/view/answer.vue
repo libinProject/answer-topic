@@ -143,6 +143,7 @@ export default {
         batch:window.batch,
         uid:this.uid,
         project:'king_of_answer',
+        type:1,
         answerList,
         rightAnswerCount :this.rightAnswerCount
       }

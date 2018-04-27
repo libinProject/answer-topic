@@ -2,6 +2,7 @@
   <div class="waaper">
     <div class="logo"></div>
     <div class="rule-btn" @click="showRule">游戏规则</div>
+    <div class="price-btn" @click="showPrice">奖项设置</div>
     <figure class="banner">
       <img src="../../static/img/home-baner.png" alt="">
     </figure>
@@ -9,12 +10,14 @@
     <span @click="jump('/cheats')" class="btn-link to-cheats">偷越秘籍</span>
     <span @click="jump('/ranking')" class="btn-link to-ranking">排行榜</span>
     <Rule v-show="showRuleStatus" :status="showRuleStatus" @showRule="showRule"></Rule>
+    <Price v-show="showPriceStatus" :status="showPriceStatus" @showRule="showPrice"></Price>
     <toast :msg="toastMsg" v-if="toastState"></toast>
   </div>
 </template>
 
 <script>
-import Rule from "../components/rule.vue"
+import Rule from "../components/rule"
+import Price from "../components/price"
 import toast from "../components/toast"
 import storage from "../store/storage"
 export default {
@@ -22,12 +25,14 @@ export default {
     return {
       toastMsg: '',
       showRuleStatus: false,
+      showPriceStatus:false,
       toastState:false
     }
   },
   components: {
     Rule,
-    toast
+    toast,
+    Price
   },
   created () {
     this.getWxconfig()
@@ -57,6 +62,9 @@ export default {
     },
     showRule(){
       this.showRuleStatus =! this.showRuleStatus
+    },
+    showPrice () {
+      this.showPriceStatus =! this.showPriceStatus
     },
     toQa () {
       let todayQa = this.getCookie('qa')

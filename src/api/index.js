@@ -58,6 +58,14 @@ class XHR {
       type: 'GET'
     })
   }
+  // getTop 获取日榜
+  getDayRank(json) {
+    return fetch({
+      url: `${URLS}/getDayRank`,
+      body: json,
+      type: 'GET'
+    })
+  }
   // 获取微信sdk
   getWechat (json) {
     return fetch({

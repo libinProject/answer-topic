@@ -218,6 +218,7 @@ export default {
         batch:window.batch,
         uid:this.myUserinfo.uid,
         project:'king_of_answer',
+        type:2,
         rightAnswerCount :this.rightAnswerCount
       }
       XHR.submitAnswer(json).then((res) => {

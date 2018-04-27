@@ -48,7 +48,7 @@ export default {
   height: 100%;
   overflow: hidden;
 }
-.rule-btn{
+.rule-btn,.price-btn{
   position: absolute;
   right: 0;
   top:60px;
@@ -60,7 +60,24 @@ export default {
   text-align: center;
   z-index: 5;
 }
-.rule-btn::after{
+.price-btn{
+  top:150px;
+}
+.rule-btn:before,.price-btn:before{
+  content:'';
+  width: 51px;
+  height: 71px;
+  display: block;
+  position: absolute;
+  left: -40px;
+  top: -7px;
+  background: url('../static/img/rule.png');
+  z-index: 10;
+}
+.price-btn:before{
+  background: url('../static/img/price-icon.png');
+}
+.rule-btn::after,.price-btn:after{
   content:'';
   background-color: rgba( 0, 46, 115,0.349 );
   width: 100%;
