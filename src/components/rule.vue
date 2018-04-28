@@ -13,6 +13,7 @@
         <p>挑战者题目为随机，每天最多可发起4次邀请好友挑战。</p>
       </div>
       <div class="num-all">注意：当分数相同的情况下，以答题时间为排序；每两期寄出一次奖品。</div>
+      <a href="https://mp.weixin.qq.com/s/IYBqX5xlba2x1P8pqKCPdg" class="to-pass">Ps，戳进来，打开潍柴王者的快速通道</a>
     </div>
     
   </div>
@@ -70,7 +71,7 @@ export default {
       background-color: rgba( 0, 42, 82 ,0.78);
       border:1px solid #09def7;
       max-height: 2000px;
-      margin:100px auto 0;
+      margin:100px auto 20px;
       transition: all 0.7s ease-in;
     }
   }
@@ -184,12 +185,23 @@ export default {
     //   text-align: left;
     //   display: block;
     // }
-    text-align: left;
+    text-align: justify;
     font-size: 24px;
     line-height: 45px;
-    padding-bottom: 40px;
-    padding: 20px  10px;
+    padding: 20px 45px;
     color: @yellow;
+  }
+  .to-pass{
+    display: block;
+    max-width: 70%;
+    background: #15a4c8;
+    margin: 20px auto 40px;
+    border-radius: 30px;
+    padding: 20px;
+    line-height: 30px;
+    font-size: 24px;
+    color: #fff;
+    text-align: center;
   }
   .fade-enter-active, .fade-leave-active {
     transition: transform .5s;
