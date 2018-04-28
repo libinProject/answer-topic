@@ -7,7 +7,8 @@
       </figure>
     </div>
     <div class="name">{{item.nickname}}</div>
-    <div class="label" v-if="type!=1">{{item.dan}}</div>
+    <div class="label" v-if="type==0">{{item.dan}}</div>
+    <div class="score" v-if="type==2">{{item.score}}</div>
   </div>
 </template>
 
@@ -66,6 +67,11 @@ export default {
       text-align: center;
       line-height: 50px;
       margin-right: 50px;
+    }
+    .score{
+      margin-right: 50px;
+      color: #0d53e0;
+      font-size: 26px;
     }
     .avatar-wrap{
       position: relative;
