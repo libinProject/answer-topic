@@ -2,20 +2,17 @@
 <transition name="fade">
   <div class="rule-pop" @click="showRule">
     <div class="rule-main">
-      <div class="lists answer">每天答10道题，得<em>10</em>分 <span class="num">+10</span></div>
+      <div class="lists answer">每日答题：每日上线10道题进行计时答题，每答对一道题积<em>1</em> 分，答题错误不积分。每个用户每日仅能参与一次。</div>
       <div class="lists pk">
-        <p>一天只能被邀请答题<em>2</em>次哦！其中一次答题满<em>7</em>分即可发起挑战。</p>
-        <p>2次答题都答对了，得<em>20</em>分，挑战成功1次奖励<em>2</em>分，2次得<em>4</em>分！随机题目也不难嘛。</p>
-        <span class="num two">+20</span>
-        <span class="num">+4</span>
+        <p>挑战10道随机题目，每答对一道题积1分，答题错误不积分。挑战成功一次额外奖励<em>2</em>分，每天可被邀请答题两次。</p>
+        <p>没有参加每日答题或每日答题低于<em>7</em>分，都可接受挑战。某次挑战满7分即可发起挑战</p>
       </div>
-      <div class="lists share">分享给朋友或者朋友圈不限次数，只得<em>1</em>分。<span class="num">+1</span></div>
+      <div class="lists share">分享活动邀请好友答题，每日分享仅可获1分奖励（分享次数不限）。</div>
       <div class="lists topk">
-        <p>每日答题得7分以上可邀请好友PK，每天可被邀请4次。</p>
-        <p>4个挑战者失败不得分，我得<em>4</em>分，挑战者的题为随机题。</p>
-        <span class="num">+4</span>
+        <p>每日答题分数达到7分后可邀请好友挑战，挑战者挑战失败，发起者获得1分奖励，挑战者挑战成功，获<em>2</em>分奖励。</p>
+        <p>挑战者题目为随机，每天最多可发起4次邀请好友挑战。</p>
       </div>
-      <div class="num-all">10+1+4+20+4=39</div>
+      <div class="num-all">注意：当分数相同的情况下，以答题时间为排序；每两期寄出一次奖品。</div>
     </div>
     
   </div>
@@ -111,8 +108,8 @@ export default {
       left: -3px;
     }
     &.answer{
-      height: 70px;
-      line-height: 70px;
+      min-height: 70px;
+      line-height: 45px;
       .num{
         top:0px;
         right: 20px;
@@ -179,18 +176,19 @@ export default {
       }
   }
   .num-all{
-    &::before{
-      width: 503px;
-      height: 114px;
-      background: url('../../static/img/rule-footer.png') no-repeat;
-      content: '';
-      margin:37px auto 15px;
-      display: block;
-    }
-    text-align: center;
+    // &::before{
+    //   width: 503px;
+    //   height: 114px;
+    //   content: '注意：当分数相同的情况下，以答题时间为排序；每两期寄出一次奖品。';
+    //   margin:37px auto 15px;
+    //   text-align: left;
+    //   display: block;
+    // }
+    text-align: left;
     font-size: 24px;
     line-height: 45px;
     padding-bottom: 40px;
+    padding: 20px  10px;
     color: @yellow;
   }
   .fade-enter-active, .fade-leave-active {

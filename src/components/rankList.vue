@@ -8,6 +8,7 @@
     </div>
     <div class="name">{{item.nickname}}</div>
     <div class="label" v-if="type==0">{{item.dan}}</div>
+    <div class="score" v-if="type==1">{{item.total}}</div>
     <div class="score" v-if="type==2">{{item.score}}</div>
   </div>
 </template>
