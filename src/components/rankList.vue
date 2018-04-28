@@ -63,7 +63,7 @@ export default {
       border-radius: 8px;
       width: 144px;
       height: 50px;
-      color: #0d53e0;
+      color: #fff;
       font-size: 26px;
       text-align: center;
       line-height: 50px;

@@ -295,7 +295,7 @@ export default {
       margin:0 20px 0 25px;
     }
     .label{
-      color: #45b0de;
+      color: #fff;
       border-radius: 8px;
       background-color: rgb( 236, 131, 38 );
       width: 117px;
