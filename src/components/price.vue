@@ -20,7 +20,7 @@
             <img src="../../static/img/price-2.png" alt="">
           </figure>
           <div class="content">
-            <div>奖品： </div>天堂雨伞<br>或水杯
+            <div>奖品： </div>500元潍柴<br>代金券
           </div>
         </div>
       </li>
@@ -31,7 +31,7 @@
             <img src="../../static/img/price-3.png" alt="">
           </figure>
           <div class="content">
-            <div>奖品： </div>天堂雨伞<br>或水杯
+            <div>奖品： </div>发动机模型<br>一个
           </div>
         </div>
       </li>
@@ -41,8 +41,8 @@
           <figure class="price">
             <img src="../../static/img/price-4.png" alt="">
           </figure>
-          <div class="content">
-            <div>奖品： </div>天堂雨伞<br>或水杯
+          <div class="content" style="padding:15px 0 0 0">
+            <div>奖品： </div>十元话费券
           </div>
         </div>
       </li>
@@ -53,7 +53,7 @@
             <img src="../../static/img/price-5.png" alt="">
           </figure>
           <div class="content">
-            <div>奖品： </div>天堂雨伞<br>或水杯
+            <div>奖品： </div>3000元潍柴<br>代金券
           </div>
         </div>
       </li>

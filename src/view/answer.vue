@@ -50,6 +50,7 @@ export default {
       toastState:false,
       errAnswerList:[], //答错题目id
       submitStatus:false, // 提交状态
+      myUserinfo:'',
       shareData: {
         link:'http://www.vr0101.com/qa/index.html',
         des:'呼朋唤友来答题，潍柴王者就是你…',
@@ -69,10 +70,10 @@ export default {
     rightAnswerCount (val, oldVal) {
       if(val > 6 || this.uid=='oeemZs0amHyBxarRXS4msd_DbI1E'||this.uid=='oeemZs0amHyBxarRXS4msd_DbI1E'||this.uid=='oeemZs1XQcsq5U7UODNjV2mUG8TY'){
         this.shareData['link'] = `http://www.vr0101.com/qa/#/PkAnswer/${this.uid}/${this.rightAnswerCount}`
-        this.shareData['title']='***觉得这个游戏你肯定玩不到**分，不服来战！'
-        this.shareData['des']='***觉得这个游戏你肯定玩不到**分，不服来战！'
+        this.shareData['title']=`${this.myUserinfo.nickname}觉得这个答题你肯定玩不到${this.rightAnswerCount}分，不服来战！`
+        this.shareData['des']=`${this.myUserinfo.nickname}觉得这个答题你肯定玩不到${this.rightAnswerCount}分，不服来战！`
         this.shareAnswer()
-        console.log(this.shareData['link'])
+        console.log(this.shareData)
       }
     }
   },
@@ -81,12 +82,17 @@ export default {
     this.hideshare()
     this.uid = this.$route.params.uid
     this.getQuestion()
+    this.getMyUser()
   },
   mounted () {
     this.scrollFooter()
     this.shareAnswer()
   },
   methods: {
+     getMyUser(){
+      let user = storage.get('userInfo')
+      this.myUserinfo = JSON.parse(user)
+    },
     scrollFooter() {
       setTimeout(() => {
         this.$el.scrollTop = this.$el.scrollHeight - window.innerHeight
