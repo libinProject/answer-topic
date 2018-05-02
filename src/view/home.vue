@@ -68,12 +68,13 @@ export default {
     },
     toQa () {
       let todayQa = this.getCookie('qa')
+      let todayFen = this.getCookie('todayFen')
       let isPc = /macintosh|window/.test(navigator.userAgent.toLowerCase());
       if(isPc){
         this.showToast('请在手机端答题')
         return
       }
-      if (todayQa) {
+      if (todayQa&&!todayFen) {
         this.showToast('今天已经答过题了，请明天再来')
       }else{
         let user = JSON.parse(storage.get('userInfo'))

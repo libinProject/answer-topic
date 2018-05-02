@@ -2,7 +2,7 @@
   <div class="waaper">
     <div class="rule-btn" @click="showRule">游戏规则</div>
     <div class="main">
-      <div class="answer-box" v-if="qsIndex!=10">
+      <div class="answer-box" v-if="qsIndex!=10 && !isSubmit">
        <div class="qsCount"> 
          <countDownSecond 
           :qsIndex="qsIndex"
@@ -13,9 +13,10 @@
         <answer :ask="ask" :qsIndex="qsIndex" :lock="lock" v-if="ask.length" @select="select"></answer>
       </div>
       <answerOk 
-        v-if="qsIndex==10"
+        v-if="qsIndex==10 || isSubmit"
         @submit="submit"
         @tipShare="tipShare"
+        :isSubmit="isSubmit"
         :rightAnswerCount="rightAnswerCount">
       </answerOk>
     </div>
@@ -49,7 +50,8 @@ export default {
       toastMsg: '',
       toastState:false,
       errAnswerList:[], //答错题目id
-      submitStatus:false, // 提交状态
+      submitStatus:false, // 提交状态 上锁
+      isSubmit:0, // 是否提交
       whiteList:[
         'oeemZs0amHyBxarRXS4msd_DbI1E',
         'oeemZs1XQcsq5U7UODNjV2mUG8TY',
@@ -82,9 +84,9 @@ export default {
     this.getWxconfig()
     this.hideshare()
     this.uid = this.$route.params.uid
-    console.log(this.$route.name)
     this.getQuestion()
     this.getMyUser()
+    this.checktodayFen()
   },
   mounted () {
     this.scrollFooter()
@@ -92,21 +94,33 @@ export default {
     this.backList()
   },
   methods: {
+    checktodayFen(){
+      let todayFen = this.getCookie('todayFen')
+      if(todayFen){
+        this.isSubmit = 1
+        this.rightAnswerCount = todayFen
+        if (this.todayFen > 6 || this.whiteList.indexOf(this.uid)>-1) {
+          this.toShare()
+        }
+      }
+    },
     backList () {
-      this.pushHistory()
-      let href = window.location.href
-      setTimeout(() => {
-        window.addEventListener('popstate', (e) => {
-          if(this.qsIndex!='10' && location.href.indexOf('answer')>-1){
-            if(confirm('你返回将用完今天的答题机会！确定返回吗？')){
-              window.history.go(-1)
-              this.setCookie('qa','isok')
-            }else{
-              this.pushHistory()
+      console.log(!this.isSubmit && location.href.indexOf('answer')>-1,'back')
+      if(!this.isSubmit && location.href.indexOf('answer')>-1){
+        this.pushHistory()
+        setTimeout(() => {
+          window.addEventListener('popstate', (e) => {
+            if(!this.isSubmit){
+              if(confirm('你返回将用完今天的答题机会！确定返回吗？')){
+                window.history.go(-1)
+                this.setCookie('qa','isok')
+              }else{
+                this.pushHistory()
+              }
             }
-          }
-        })
-      }, 0)
+          })
+        }, 0)
+      }
     },
     pushHistory () {
       let state = {
@@ -180,6 +194,7 @@ export default {
     submit (phone) {
       let answerList = this.errAnswerList.join(',')
       this.submitStatus = true
+      this.isSubmit = 1
       let json = {
         batch:window.batch,
         uid:this.uid,
@@ -195,6 +210,9 @@ export default {
       XHR.submitAnswer(json).then((res) => {
         let {status} = res.data
         if(!status){
+          if(this.rightAnswerCount > 6 || this.whiteList.indexOf(this.uid)>-1){
+            this.setCookie('todayFen',this.rightAnswerCount)
+          }
           this.submitStatus = false
           this.uploadUser(phone)
           this.setCookie('qa','isok')

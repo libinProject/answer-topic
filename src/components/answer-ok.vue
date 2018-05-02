@@ -6,9 +6,9 @@
       placeholder="输入您的手机号码" 
       maxlength="11" 
       v-model="tel" @input="changeInput" v-if="!userinfo.phone">
-    <span class="tips">首次答题用户需完善你的电话信息，以便后续礼品发放</span>
+    <span class="tips" v-if="!userinfo.phone">首次答题用户需完善你的电话信息，以便后续礼品发放</span>
   </div>
-  <button :disabled="disabled" type="submit" @click.prevent="submit">确定</button>
+  <button :disabled="disabled" type="submit" v-if="!isSubmit" @click.prevent="submit">确定</button>
   <button type="button" @click="tipShare" class="share" v-if="score>6">邀好友挑战</button>
 
 </form>
@@ -17,7 +17,7 @@
 <script>
 import storage from "../store/storage"
 export default {
-  props:['ask','rightAnswerCount'],
+  props:['ask','rightAnswerCount','isSubmit'],
   data () {
     return {
       disabled:true,
@@ -88,7 +88,7 @@ export default {
     .ask-content{
       margin:160px auto 60px;
       width: 640px;
-      min-height: 550px;
+      min-height: 110px;
       border-radius: 16px;
       background:rgba(247, 217, 156, 0.18);
       border:1px solid #6ac5e4;
