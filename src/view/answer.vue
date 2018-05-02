@@ -50,6 +50,13 @@ export default {
       toastState:false,
       errAnswerList:[], //答错题目id
       submitStatus:false, // 提交状态
+      whiteList:[
+        'oeemZs0amHyBxarRXS4msd_DbI1E',
+        'oeemZs1XQcsq5U7UODNjV2mUG8TY',
+        'oeemZs1aTdw3jJddI3X8M9DCznAs',
+        'oeemZs6bz2GWqz-qg6guLfezhfJ4',
+        'oeemZs3P86PePtfIdwi7_EyQM2Ms',
+        'oeemZs7WaW0RB9OjEVPeMpYK74rE'], // 白名单
       myUserinfo:'',
       shareData: {
         link:'http://www.vr0101.com/qa/index.html',
@@ -68,30 +75,58 @@ export default {
   },
   watch: {
     rightAnswerCount (val, oldVal) {
-      if(val > 6 || this.uid=='oeemZs0amHyBxarRXS4msd_DbI1E'||this.uid=='oeemZs0amHyBxarRXS4msd_DbI1E'||this.uid=='oeemZs1XQcsq5U7UODNjV2mUG8TY'){
-        this.shareData['link'] = `http://www.vr0101.com/qa/#/PkAnswer/${this.uid}/${this.rightAnswerCount}`
-        this.shareData['title']=`${this.myUserinfo.nickname}觉得这个答题你肯定玩不到${this.rightAnswerCount}分，不服来战！`
-        this.shareData['des']=`${this.myUserinfo.nickname}觉得这个答题你肯定玩不到${this.rightAnswerCount}分，不服来战！`
-        this.shareAnswer()
-        console.log(this.shareData)
-      }
+      this.toShare()
     }
   },
   created () {
     this.getWxconfig()
     this.hideshare()
     this.uid = this.$route.params.uid
+    console.log(this.$route.name)
     this.getQuestion()
     this.getMyUser()
   },
   mounted () {
     this.scrollFooter()
     this.shareAnswer()
+    this.backList()
   },
   methods: {
+    backList () {
+      this.pushHistory()
+      let href = window.location.href
+      setTimeout(() => {
+        window.addEventListener('popstate', (e) => {
+          if(this.qsIndex!='10' && location.href.indexOf('answer')>-1){
+            if(confirm('你返回将用完今天的答题机会！确定返回吗？')){
+              window.history.go(-1)
+              this.setCookie('qa','isok')
+            }else{
+              this.pushHistory()
+            }
+          }
+        })
+      }, 0)
+    },
+    pushHistory () {
+      let state = {
+        title: 'title',
+        url: '#'
+      }
+      window.history.pushState(state, 'title', '#')
+    },
      getMyUser(){
       let user = storage.get('userInfo')
       this.myUserinfo = JSON.parse(user)
+    },
+    toShare(){
+      if(this.rightAnswerCount > 6 || this.whiteList.indexOf(this.uid)>-1){
+        this.shareData['link'] = `http://www.vr0101.com/qa/#/PkAnswer/${this.uid}/${this.rightAnswerCount}`
+        this.shareData['title']=`${this.myUserinfo.nickname}觉得这个答题你肯定玩不到${this.rightAnswerCount}分，不服来战！`
+        this.shareData['des']=`${this.myUserinfo.nickname}觉得这个答题你肯定玩不到${this.rightAnswerCount}分，不服来战！`
+        this.shareAnswer()
+        console.log(this.shareData)
+      }
     },
     scrollFooter() {
       setTimeout(() => {
@@ -107,7 +142,7 @@ export default {
       this.toastState = true
       setTimeout(() => {
         this.toastState = false
-        this.$router.go(-1)
+        // this.$router.go(-1)
       }, 2e3);
     },
     getQuestion() {
@@ -196,6 +231,25 @@ export default {
         console.log(res.data)
       })
     },
+    checkShareNum(that){
+      let shareNum = that.getCookie('sharePK')
+      if(shareNum){
+        if(shareNum>3){
+          that.showToast('您今天邀请好友pk的次数已达到上限')
+        }
+        if(shareNum>2){
+          that.shareData['link']='http://www.vr0101.com/qa/index.html'
+          that.shareData['des']='呼朋唤友来答题，潍柴王者就是你…'
+          that.shareData['title']='呼朋唤友来答题，潍柴王者就是你…'
+          that.shareAnswer()
+        }
+        shareNum = parseInt(shareNum)+1
+        that.setCookie('sharePK',shareNum)
+        console.log(that.shareData,2)
+      }else{
+        that.setCookie('sharePK',1)
+      }
+    },
     shareAnswer () {
       let that = this
       wx.ready(() => {
@@ -214,6 +268,9 @@ export default {
               that.addIntegral(that.uid,1)
               that.setCookie('qaShare','isok')
             }
+            if(that.rightAnswerCount > 6 || that.whiteList.indexOf(that.uid)>-1){
+              that.checkShareNum(that)
+            }
           },
           cancel: (res) => {
             // 用户取消分享后执行的回调函数
@@ -230,6 +287,9 @@ export default {
               if (!qaShare) {
                 that.addIntegral(that.uid,1)
                 that.setCookie('qaShare','isok')
+              }
+              if(that.rightAnswerCount > 6 || that.whiteList.indexOf(that.uid)>-1){
+               that.checkShareNum(that)
               }
           },
           cancel: function () {

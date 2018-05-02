@@ -59,6 +59,7 @@ export default {
     return {
       qsIndex:0, // 当前问题下标
       ask:[],
+      errAnswerList:[], //答错题目id
       pkStatus:'0',
       lock:'false', // 是否选择问题 并上锁
       rightAnswerCount:0, // 答对题目数量
@@ -166,6 +167,11 @@ export default {
     select (index,item) {
       if(this.lock == 'false'){
         this.lock = index
+        if(index!=item.answer){
+          this.errAnswerList.push(1)
+        }else{
+          this.errAnswerList.push(0)
+        }
         // 计算正确答题个数
         if (index == item.answer) {
           this.rightAnswerCount++
@@ -177,6 +183,7 @@ export default {
       }
     },
     stopCall () {
+      this.errAnswerList.push(1)
       this.qsIndex++
     },
     showToast (msg) {
@@ -214,15 +221,17 @@ export default {
       }
     },
     submit(){
+      let answerList = this.errAnswerList.join(',')
       let json = {
         batch:window.batch,
         uid:this.myUserinfo.uid,
         project:'king_of_answer',
         type:2,
+        answerList,
         rightAnswerCount :this.rightAnswerCount
       }
       XHR.submitAnswer(json).then((res) => {
-        let {status} = res.data
+        let {status,data} = res.data
         if(!status){
           let InitiatorUid = this.shareUserinfo.uid
           this.isPkUser[InitiatorUid] = {
@@ -237,11 +246,7 @@ export default {
           }else{
             this.pkResult(this.shareUserinfo.uid,1)
           }
-          if (!data) {
-            this.showToast('不能重复提交')
-          }else{
-            this.showToast('恭喜您提交成功')
-          }
+          this.showToast('恭喜您提交成功')
           setTimeout(() => {
             this.jump('/')
           }, 2e3);

@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import storage from "../store/storage"
 export default {
   props:['ask','rightAnswerCount'],
   data () {
@@ -27,6 +28,9 @@ export default {
   },
   created () {
      this.userinfo = JSON.parse(storage.get('userInfo'))
+     if(this.userinfo.phone){
+       this.disabled = false
+     }
   },
   computed: {
     score () {

@@ -7,7 +7,7 @@
       <img src="../../static/img/home-baner.png" alt="">
     </figure>
     <span @click="toQa" class="btn-link to-ask">开始答题</span>
-    <span @click="jump('/cheats')" class="btn-link to-cheats">偷越秘籍</span>
+    <a href="https://mp.weixin.qq.com/s/f80J368Aak8aoCpUfwaAoQ" class="btn-link to-cheats">偷越秘籍</a>
     <span @click="jump('/ranking')" class="btn-link to-ranking">排行榜</span>
     <Rule v-show="showRuleStatus" :status="showRuleStatus" @showRule="showRule"></Rule>
     <Price v-show="showPriceStatus" :status="showPriceStatus" @showRule="showPrice"></Price>
@@ -68,6 +68,11 @@ export default {
     },
     toQa () {
       let todayQa = this.getCookie('qa')
+      let isPc = /macintosh|window/.test(navigator.userAgent.toLowerCase());
+      if(isPc){
+        this.showToast('请在手机端答题')
+        return
+      }
       if (todayQa) {
         this.showToast('今天已经答过题了，请明天再来')
       }else{
@@ -76,7 +81,7 @@ export default {
       }
     }
   }
-}
+  }
 </script>
 
 <style scoped lang="less">
