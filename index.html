@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
-    <title>潍柴答题王等你来战</title>
+    <title>潍柴答题王</title>
     <meta content="呼朋唤友来答题，潍柴王者就是你…" name="keywords">
     <meta content="呼朋唤友来答题，潍柴王者就是你…" name="description">
     <meta name="apple-mobile-web-app-capable" content="no" />
     <meta name="format-detection" content="telephone=no">
     <script>
-      var phoneScale = parseInt(window.screen.width) / 750;
-      if (/Android (\d+\.\d+)/.test(navigator.userAgent)) {
-        if (parseFloat(RegExp.$1) > 2.3) {
-          document.write('<meta name="viewport" content="width=750, minimum-scale=' + phoneScale + ', maximum-scale=' + phoneScale + ', target-densitydpi=device-dpi" />')
+        var phoneScale = parseInt(window.screen.width) / 750;
+        if (/Android (\d+\.\d+)/.test(navigator.userAgent)) {
+            if (parseFloat(RegExp.$1) > 2.3) {
+                document.write('<meta name="viewport" content="width=750, minimum-scale=' + phoneScale + ', maximum-scale=' + phoneScale + ', target-densitydpi=device-dpi" />')
+            } else {
+                document.write('<meta name="viewport" content="width=750, target-densitydpi=device-dpi" />')
+            }
         } else {
-          document.write('<meta name="viewport" content="width=750, target-densitydpi=device-dpi" />')
+            document.write('<meta name="viewport" content="width=750,user-scalable=no, minimum-scale=' + phoneScale + ', maximum-scale=' + phoneScale + '" />')
         }
-      } else {
-        document.write('<meta name="viewport" content="width=750,user-scalable=no, minimum-scale=' + phoneScale + ', maximum-scale=' + phoneScale + '" />')
-      }
-      var batch = 1 // 一期
+        var batch = 1 // 一期
     </script>
-  </head>
-  <body>
+</head>
+
+<body>
     <div id="app"></div>
-  </body>
+</body>
+
 </html>
