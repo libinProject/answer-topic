@@ -26,7 +26,7 @@
         <span>潍柴王者540~600分</span>
       </div>
       <div class="num-all">最终解释权归潍柴所有</div>
-      <a href="https://mp.weixin.qq.com/s/IYBqX5xlba2x1P8pqKCPdg" class="to-pass">Ps，戳进来，打开潍柴王者的快速通道</a>
+      <a href="https://mp.weixin.qq.com/s/93yss4ujoGNcLbmnEhytJg" class="to-pass">Ps，戳进来，打开潍柴王者的快速通道</a>
     </div>
     
   </div>
