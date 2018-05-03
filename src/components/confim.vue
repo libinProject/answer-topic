@@ -52,8 +52,8 @@ export default {
     border-radius: 3px;
     overflow: hidden;
     .main{
-      padding: 0 40px;
-      font-size: 30px;
+      padding: 25px 40px;
+      font-size: 35px;
       margin-top: 40px;
       color: #888;
       word-wrap: break-word;

@@ -205,7 +205,7 @@ export default {
     padding: 0 20px 0 100px;
     .first{
       display: inline-block;
-      width: 220px;
+      width: 225px;
       margin-right: 20px;
     }
     
