@@ -24,6 +24,7 @@
     <div class="wechat-tips" v-if="showShareTips" @click="tipShare"></div>
     <toast :msg="toastMsg" v-if="toastState"></toast>
     <loading-img v-if="submitStatus"></loading-img>
+    <confim v-if="showConfim" @cencal="cencal" @ok="ok"></confim>
   </div>
 </template>
 
@@ -36,6 +37,7 @@ import countDownSecond from "../components/countDownSeconds"
 import storage from "../store/storage"
 import toast from "../components/toast"
 import loadingImg from "../components/loading-img"
+import confim from "../components/confim"
 var wx = require('weixin-js-sdk');
 export default {
   data () {
@@ -64,7 +66,8 @@ export default {
         link:'http://www.vr0101.com/qa/index.html',
         des:'呼朋唤友来答题，潍柴王者就是你…',
         title:'呼朋唤友来答题，潍柴王者就是你…'
-      }
+      },
+      showConfim:0
     }
   },
   components: {
@@ -73,6 +76,7 @@ export default {
     answerOk,
     toast,
     loadingImg,
+    confim,
     countDownSecond
   },
   watch: {
@@ -105,18 +109,18 @@ export default {
       }
     },
     backList () {
-      console.log(!this.isSubmit && location.href.indexOf('answer')>-1,'back')
       if(!this.isSubmit && location.href.indexOf('answer')>-1){
         this.pushHistory()
         setTimeout(() => {
           window.addEventListener('popstate', (e) => {
             if(!this.isSubmit){
-              if(confirm('你返回将用完今天的答题机会！确定返回吗？')){
-                window.history.go(-1)
-                this.setCookie('qa','isok')
-              }else{
-                this.pushHistory()
-              }
+              this.showConfim=1
+              // if(confirm('你返回将用完今天的答题机会！确定返回吗？')){
+              //   window.history.go(-1)
+              //   this.setCookie('qa','isok')
+              // }else{
+              //   this.pushHistory()
+              // }
             }
           })
         }, 0)
@@ -129,9 +133,18 @@ export default {
       }
       window.history.pushState(state, 'title', '#')
     },
-     getMyUser(){
+    getMyUser(){
       let user = storage.get('userInfo')
       this.myUserinfo = JSON.parse(user)
+    },
+    cencal(){
+      this.showConfim=0
+      this.pushHistory()
+    },
+    ok(){
+      this.showConfim=0
+      window.history.go(-1)
+      this.setCookie('qa','isok')
     },
     toShare(){
       if(this.rightAnswerCount > 6 || this.whiteList.indexOf(this.uid)>-1){
@@ -263,7 +276,6 @@ export default {
         }
         shareNum = parseInt(shareNum)+1
         that.setCookie('sharePK',shareNum)
-        console.log(that.shareData,2)
       }else{
         that.setCookie('sharePK',1)
       }
@@ -283,7 +295,7 @@ export default {
           success: (res) => {
             let qaShare = that.getCookie('qaShare')
             if (!qaShare) {
-              that.addIntegral(that.uid,1)
+              that.addIntegral(that.uid, 1)
               that.setCookie('qaShare','isok')
             }
             if(that.rightAnswerCount > 6 || that.whiteList.indexOf(that.uid)>-1){
@@ -302,13 +314,13 @@ export default {
           imgUrl: 'http://www.vr0101.com/qa/static/img/share.jpg',
           success: function () {
             let qaShare = that.getCookie('qaShare')
-              if (!qaShare) {
-                that.addIntegral(that.uid,1)
-                that.setCookie('qaShare','isok')
-              }
-              if(that.rightAnswerCount > 6 || that.whiteList.indexOf(that.uid)>-1){
-               that.checkShareNum(that)
-              }
+            if (!qaShare) {
+              that.addIntegral(that.uid, 1)
+              that.setCookie('qaShare','isok')
+            }
+            if(that.rightAnswerCount > 6 || that.whiteList.indexOf(that.uid)>-1){
+              that.checkShareNum(that)
+            }
           },
           cancel: function () {
             // 用户取消分享后执行的回调函数

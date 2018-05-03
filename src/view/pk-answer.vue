@@ -43,6 +43,7 @@
       @submit="submit">
     </pk-err>
     <toast :msg="toastMsg" v-if="toastState"></toast>
+    <back></back>
   </div>
 </template>
 
@@ -54,6 +55,7 @@ import pkErr from "../components/pk-err"
 import countDownSecond from "../components/countDownSeconds"
 import storage from "../store/storage"
 import toast from "../components/toast"
+import back from "../components/back"
 export default {
   data () {
     return {
@@ -81,6 +83,7 @@ export default {
     pkOk,
     pkErr,
     toast,
+    back,
     countDownSecond
   },
   watch: {
