@@ -13,15 +13,19 @@
         <p>挑战者题目为随机，每天最多可发起4次邀请好友挑战。</p>
       </div>
       <div class="num-all">注意：当分数相同的情况下，以答题时间为排序；每两期寄出一次奖品。</div>
-      <div class="num-all">
-        潍柴答题王段位等级表<br>
-        <span class="first">潍柴白丁0~60分,</span><span>起步熟手60~120分</span> <br>
-        <span class="first">学富五车120~180分,</span><span>知识渊博180~240分</span><br>
-        <span class="first">登峰造极240~300分,</span><span>智者大师300~360分</span><br>
-        <span class="first">万卷宗师360~420分,</span><span>博学史诗420~480分</span><br>
-        <span class="first">智慧传说480~540分,</span><span>潍柴王者540~600分</span><br>
-        最终解释权归潍柴所有
+      <div class="lists paragraph">
+        <span class="first">潍柴白丁0~60分</span>
+        <span>起步熟手60~120分</span><br>
+        <span class="first">学富五车120~180分</span>
+        <span>知识渊博180~240分</span><br>
+        <span class="first">登峰造极240~300分</span>
+        <span>智者大师300~360分</span><br>
+        <span class="first">万卷宗师360~420分</span>
+        <span>博学史诗420~480分</span><br>
+        <span class="first">智慧传说480~540分</span>
+        <span>潍柴王者540~600分</span>
       </div>
+      <div class="num-all">最终解释权归潍柴所有</div>
       <a href="https://mp.weixin.qq.com/s/IYBqX5xlba2x1P8pqKCPdg" class="to-pass">Ps，戳进来，打开潍柴王者的快速通道</a>
     </div>
     
@@ -91,6 +95,7 @@ export default {
     color: #fff;
     padding: 0 40px 0 180px;
     position: relative;
+    text-align: justify;
     em{
       font-size: 28px;
       color: @yellow;
@@ -185,6 +190,26 @@ export default {
         bottom: -26px;
       }
   }
+  .paragraph{
+    &::before{
+        content: '';
+        background: url('../../static/img/rule-paragraph.png') no-repeat;
+        width: 149px;
+        height: 107px;
+        top:-80px;
+        left: -3px;
+      }
+    font-size: 24px;
+    line-height: 45px;
+    margin-top: 120px;
+    padding: 0 20px 0 100px;
+    .first{
+      display: inline-block;
+      width: 220px;
+      margin-right: 20px;
+    }
+    
+  }
   .num-all{
     text-align: justify;
     font-size: 24px;
@@ -193,10 +218,6 @@ export default {
     color: @yellow;
     span{
       display: inline-block;
-    }
-    .first{
-      width: 250px;
-      margin-right: 30px;
     }
   }
   .to-pass{
