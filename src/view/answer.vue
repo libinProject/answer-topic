@@ -91,6 +91,7 @@ export default {
     this.getQuestion()
     this.getMyUser()
     this.checktodayFen()
+    this.setCookie('qa','isok')
   },
   mounted () {
     this.scrollFooter()
@@ -144,7 +145,6 @@ export default {
     ok(){
       this.showConfim=0
       window.history.go(-1)
-      this.setCookie('qa','isok')
     },
     toShare(){
       if(this.rightAnswerCount > 6 || this.whiteList.indexOf(this.uid)>-1){
@@ -228,7 +228,6 @@ export default {
           }
           this.submitStatus = false
           this.uploadUser(phone)
-          this.setCookie('qa','isok')
           this.showToast('恭喜您提交成功')
         }
       })
