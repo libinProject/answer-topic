@@ -34,7 +34,7 @@ export default {
     display: flex;
     align-items: center;
     height: 100%;
-    background: url('../../static/img/rank-list-bg.jpg') no-repeat;
+    background: url('http://www.vr0101.com/qa/static/img/rank-list-bg.jpg') no-repeat;
     .order-number{
       text-align: center;
       width: 110px;
@@ -82,7 +82,7 @@ export default {
     }
   }
   .top-list{
-    background: url('../../static/img/rank-list-one.jpg') no-repeat;
+    background: url('http://www.vr0101.com/qa/static/img/rank-list-one.jpg') no-repeat;
     overflow: visible;
     .order-number{
       font-size: 0;
@@ -90,13 +90,13 @@ export default {
     .order-number::before{
       content:'';
       display: inline-flex;
-      background: url('../../static/img/ranking-1.png') no-repeat;
+      background: url('http://www.vr0101.com/qa/static/img/ranking-1.png') no-repeat;
       width: 54px;
       height: 66px;
     }
     .avatar-wrap::before{
       content: '';
-      background: url('../../static/img/crown.png') no-repeat;
+      background: url('http://www.vr0101.com/qa/static/img/crown.png') no-repeat;
       width: 48px;
       height: 39px;
       position: absolute;
@@ -113,9 +113,9 @@ export default {
     }
   }
   .list-1{
-    background: url('../../static/img/rank-list-two.jpg') no-repeat;
+    background: url('http://www.vr0101.com/qa/static/img/rank-list-two.jpg') no-repeat;
     .order-number::before{
-      background: url('../../static/img/ranking-2.png') no-repeat;
+      background: url('http://www.vr0101.com/qa/static/img/ranking-2.png') no-repeat;
     }
     .avatar{
       border-color: #c7cad9;
@@ -125,9 +125,9 @@ export default {
     }
   }
   .list-2{
-    background: url('../../static/img/rank-list-three.jpg') no-repeat;
+    background: url('http://www.vr0101.com/qa/static/img/rank-list-three.jpg') no-repeat;
     .order-number::before{
-      background: url('../../static/img/ranking-3.png') no-repeat;
+      background: url('http://www.vr0101.com/qa/static/img/ranking-3.png') no-repeat;
     }
     .avatar{
       border-color: #ab8288;

@@ -67,7 +67,7 @@ export default {
       position: absolute;
       width: 267px;
       height: 57px;
-      background: url('../../static/img/rule-header.png') no-repeat;
+      background: url('http://www.vr0101.com/qa/static/img/rule-header.png') no-repeat;
       left: 50%;
       margin-left: -138px;
       top:73px;
@@ -105,7 +105,7 @@ export default {
       display: block;
       width: 64px;
       height: 64px;
-      background: url('../../static/img/rule-num.png') no-repeat;
+      background: url('http://www.vr0101.com/qa/static/img/rule-num.png') no-repeat;
       text-align: center;
       line-height: 64px;
       font-size: 24px;
@@ -118,7 +118,7 @@ export default {
     &.answer::before{
       width: 150px;
       height: 51px;
-      background: url('../../static/img/rule-1.png') no-repeat;
+      background: url('http://www.vr0101.com/qa/static/img/rule-1.png') no-repeat;
       top:0px;
       left: -3px;
     }
@@ -135,7 +135,7 @@ export default {
     padding-top: 40px;
       &::before{
         content: '';
-        background: url('../../static/img/rule-topk.png') no-repeat;
+        background: url('http://www.vr0101.com/qa/static/img/rule-topk.png') no-repeat;
         width: 149px;
         height: 105px;
         top:28px;
@@ -158,7 +158,7 @@ export default {
       margin-top: 60px;
       &::before{
         content: '';
-        background: url('../../static/img/rule-share.png') no-repeat;
+        background: url('http://www.vr0101.com/qa/static/img/rule-share.png') no-repeat;
         width: 149px;
         height: 50px;
         top:0;
@@ -175,7 +175,7 @@ export default {
   .topk{
       &::before{
         content: '';
-        background: url('../../static/img/rule-pk.png') no-repeat;
+        background: url('http://www.vr0101.com/qa/static/img/rule-pk.png') no-repeat;
         width: 149px;
         height: 107px;
         top:-60px;
@@ -193,7 +193,7 @@ export default {
   .paragraph{
     &::before{
         content: '';
-        background: url('../../static/img/rule-paragraph.png') no-repeat;
+        background: url('http://www.vr0101.com/qa/static/img/rule-paragraph.png') no-repeat;
         width: 149px;
         height: 107px;
         top:-80px;

@@ -6,7 +6,7 @@
         <div class="left">每日前<em>10</em>名</div>
         <div class="right">
           <figure class="price first">
-            <img src="../../static/img/price-1.png" alt="">
+            <img src="http://www.vr0101.com/qa/static/img/price-1.png" alt="">
           </figure>
           <div class="content">
             <div>奖品： </div>天堂雨伞<br>或水杯
@@ -17,7 +17,7 @@
         <div class="left">前<em>3</em>名</div>
         <div class="right">
           <figure class="price two">
-            <img src="../../static/img/price-2.png" alt="">
+            <img src="http://www.vr0101.com/qa/static/img/price-2.png" alt="">
           </figure>
           <div class="content">
             <div>奖品： </div>500元潍柴<br>代金券
@@ -28,7 +28,7 @@
         <div class="left">第<em>4-10</em>名</div>
         <div class="right">
           <figure class="price three">
-            <img src="../../static/img/price-3.png" alt="">
+            <img src="http://www.vr0101.com/qa/static/img/price-3.png" alt="">
           </figure>
           <div class="content">
             <div>奖品： </div>发动机模型<br>一个
@@ -39,7 +39,7 @@
         <div class="left">第<em>11-50</em>名</div>
         <div class="right">
           <figure class="price">
-            <img src="../../static/img/price-4.png" alt="">
+            <img src="http://www.vr0101.com/qa/static/img/price-4.png" alt="">
           </figure>
           <div class="content" style="padding:15px 0 0 0">
             <div>奖品： </div>十元话费券
@@ -50,7 +50,7 @@
         <div class="left">前<em>3</em>名</div>
         <div class="right">
           <figure class="price">
-            <img src="../../static/img/price-5.png" alt="">
+            <img src="http://www.vr0101.com/qa/static/img/price-5.png" alt="">
           </figure>
           <div class="content">
             <div>奖品： </div>3000元潍柴<br>代金券
@@ -97,7 +97,7 @@ export default {
       position: absolute;
       width: 267px;
       height: 57px;
-      background: url('../../static/img/rule-header.png') no-repeat;
+      background: url('http://www.vr0101.com/qa/static/img/rule-header.png') no-repeat;
       left: 50%;
       margin-left: -138px;
       top:138px;

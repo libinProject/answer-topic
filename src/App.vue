@@ -71,11 +71,11 @@ export default {
   position: absolute;
   left: -40px;
   top: -7px;
-  background: url('../static/img/rule.png');
+  background: url('http://www.vr0101.com/qa/static/img/rule.png');
   z-index: 10;
 }
 .price-btn:before{
-  background: url('../static/img/price-icon.png');
+  background: url('http://www.vr0101.com/qa/static/img/price-icon.png');
 }
 .rule-btn::after,.price-btn:after{
   content:'';

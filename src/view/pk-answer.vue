@@ -275,7 +275,7 @@ export default {
     display: flex;
     justify-content: space-between;
     z-index: 1;
-    background: url(../../static/img/pk-bg.png) no-repeat top;
+    background: url(http://www.vr0101.com/qa/static/img/pk-bg.png) no-repeat top;
   }
   .info{
     text-align: center;
@@ -287,7 +287,7 @@ export default {
       padding: 21px 16px;
       box-sizing: border-box;
       &:before{
-        background: url('../../static/img/my-Halo.png') no-repeat;
+        background: url('http://www.vr0101.com/qa/static/img/my-Halo.png') no-repeat;
         content: '';
         position: absolute;
         left: 0;
@@ -329,14 +329,14 @@ export default {
   }
   .other-info{
     .head{
-      background: url('../../static/img/other-Halo.png') no-repeat; 
+      background: url('http://www.vr0101.com/qa/static/img/other-Halo.png') no-repeat; 
     }
     .level{
       border-color: rgb(8, 177, 240);
     }
   } 
   .pk{
-    background: url('../../static/img/pk.png') no-repeat;
+    background: url('http://www.vr0101.com/qa/static/img/pk.png') no-repeat;
     width: 286px;
     height: 98px;
     position: absolute;

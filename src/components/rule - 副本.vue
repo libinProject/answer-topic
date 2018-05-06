@@ -50,7 +50,7 @@ export default {
       position: absolute;
       width: 267px;
       height: 57px;
-      background: url('../../static/img/rule-header.png') no-repeat;
+      background: url('http://www.vr0101.com/qa/static/img/rule-header.png') no-repeat;
       left: 50%;
       margin-left: -138px;
       top:138px;

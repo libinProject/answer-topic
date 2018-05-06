@@ -185,7 +185,7 @@ export default {
     flex:1;
     height: 100%;
     display: flex;
-    background: url('../../static/img/ranking-bg.jpg') 50% 50% no-repeat;
+    background: url('http://www.vr0101.com/qa/static/img/ranking-bg.jpg') 50% 50% no-repeat;
     background-size: cover; 
     padding: 0 20px;
     box-sizing: border-box;
@@ -194,7 +194,7 @@ export default {
       content:'';
       display: block;
       position: absolute;
-      background: url('../../static/img/top-icon.png');
+      background: url('http://www.vr0101.com/qa/static/img/top-icon.png');
       width: 724px;
       height: 397px;
       top:0px;
