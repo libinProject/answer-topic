@@ -96,7 +96,7 @@ export default {
                     // 分享到朋友圈
                 wx.onMenuShareTimeline({
                         title: '呼朋唤友来答题，潍柴王者就是你…',
-                        link: `http://yxhy.weichai.com:8085/weichaidatiwang/index.html?shareUid=${user.uid}&time=${time}`,
+                        link: `http://www.vr0101.com/qa/index.html?shareUid=${user.uid}&time=${time}`,
                         imgUrl: 'http://www.vr0101.com/qa/static/img/share.jpg',
                         success: (res) => {
                             let qaShare = this.getCookie('qaShare')
@@ -113,7 +113,7 @@ export default {
                 wx.onMenuShareAppMessage({
                     title: '呼朋唤友来答题，潍柴王者就是你…',
                     desc: '呼朋唤友来答题，潍柴王者就是你…',
-                    link: `http://yxhy.weichai.com:8085/weichaidatiwang/index.html?shareUid=${user.uid}&time=${time}`,
+                    link: `http://www.vr0101.com/qa/index.html?shareUid=${user.uid}&time=${time}`,
                     imgUrl: 'http://www.vr0101.com/qa/static/img/share.jpg',
                     success: (res) => {
                         let qaShare = this.getCookie('qaShare')
