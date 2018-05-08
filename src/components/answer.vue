@@ -25,6 +25,11 @@ export default {
   },
   created () {
   },
+  computed:{
+    distance(){
+      return 625*this.qsIndex
+    }
+  },
   methods: {
     select(index,answer){
      this.$emit('select', index, answer)
@@ -47,6 +52,38 @@ export default {
       transition-duration: 300ms;
       &.slide1{
         transform: translate3d(-625px, 0px, 0px);
+        transition-duration: 0;
+      }
+      &.slide2{
+        transform: translate3d(-1250px, 0px, 0px);
+        transition-duration: 0;
+      }
+      &.slide3{
+        transform: translate3d(-1875px, 0px, 0px);
+        transition-duration: 0;
+      }
+      &.slide4{
+        transform: translate3d(-2500px, 0px, 0px);
+        transition-duration: 0;
+      }
+      &.slide5{
+        transform: translate3d(-3125px, 0px, 0px);
+        transition-duration: 0;
+      }
+      &.slide6{
+        transform: translate3d(-3750px, 0px, 0px);
+        transition-duration: 0;
+      }
+      &.slide7{
+        transform: translate3d(-4375px, 0px, 0px);
+        transition-duration: 0;
+      }
+      &.slide8{
+        transform: translate3d(-5000px, 0px, 0px);
+        transition-duration: 0;
+      }
+      &.slide9{
+        transform: translate3d(-5625px, 0px, 0px);
         transition-duration: 0;
       }
       li{
