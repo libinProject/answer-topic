@@ -1,13 +1,12 @@
 <template>
   <div class="waaper">
     <div class="logo"></div>
-    <div class="logo-two"></div>
     <div class="rule-btn" @click="showRule">游戏规则</div>
     <div class="price-btn" @click="showPrice">奖项设置</div>
     <figure class="banner">
       <img src="http://www.vr0101.com/qa/static/img/home-baner.png" alt="">
     </figure>
-    <span @click="toQa" class="btn-link to-ask">开始答题</span>
+    <span @click="getQuestion" class="btn-link to-ask">开始答题</span>
     <a href="https://mp.weixin.qq.com/s/f80J368Aak8aoCpUfwaAoQ" class="btn-link to-cheats">偷越秘籍</a>
     <span @click="jump('/ranking')" class="btn-link to-ranking">排行榜</span>
     <Rule v-show="showRuleStatus" :status="showRuleStatus" @showRule="showRule"></Rule>
@@ -17,6 +16,7 @@
 </template>
 
 <script>
+import XHR from '../api'
 import Rule from "../components/rule"
 import Price from "../components/price"
 import toast from "../components/toast"
@@ -67,6 +67,23 @@ export default {
     showPrice () {
       this.showPriceStatus =! this.showPriceStatus
     },
+    getQuestion() {
+      let json = {
+        batch:1,
+        type:1,
+        project:'king_of_answer'
+      }
+      XHR.getQs(json).then((res) => {
+        let {data,status, message} = res.data
+        if(status == '2'){
+           this.showToast(message)
+           return 
+        }
+        if(status=='0'){
+          this.toQa()
+        }
+      })
+    },
     toQa () {
       let todayQa = this.getCookie('qa')
       let todayFen = this.getCookie('todayFen')
@@ -99,14 +116,6 @@ export default {
       height: 54px;
       margin:66px 0 0 56px;
       background: url('http://www.vr0101.com/qa/static/img/logo.png');
-      float: left;
-    }
-    .logo-two{
-      width: 141px;
-      height: 50px;
-      margin:66px 0 0 30px;
-      background: url('../../static/img/logo_2.png') 50% 50%;
-      float: left;
     }
     .banner{
       width: 588px;

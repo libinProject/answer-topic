@@ -165,6 +165,9 @@ export default {
         if(!status){
           this.ask = data
         }
+        if(status == '2'){
+          this.jump('/')
+        }
       })
     },
     select (index,item) {

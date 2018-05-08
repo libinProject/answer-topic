@@ -20,11 +20,15 @@
         :rightAnswerCount="rightAnswerCount">
       </answerOk>
     </div>
+    <div class="logos" v-if="qsIndex==10 || isSubmit">
+      <img src="../../static/img/logo_2.png" alt="">
+    </div>
     <Rule v-show="showRuleStatus" :status="showRuleStatus" @showRule="showRule"></Rule>
     <div class="wechat-tips" v-if="showShareTips" @click="tipShare"></div>
     <toast :msg="toastMsg" v-if="toastState"></toast>
     <loading-img v-if="submitStatus"></loading-img>
     <confim v-if="showConfim" @cencal="cencal" @ok="ok"></confim>
+    
   </div>
 </template>
 
@@ -60,6 +64,7 @@ export default {
         'oeemZs1aTdw3jJddI3X8M9DCznAs',
         'oeemZs6bz2GWqz-qg6guLfezhfJ4',
         'oeemZs3P86PePtfIdwi7_EyQM2Ms',
+        'oeemZs9BMR2olwRLQFol6fLmw7pQ',
         'oeemZs7WaW0RB9OjEVPeMpYK74rE'], // 白名单
       myUserinfo:'',
       shareData: {
@@ -146,7 +151,7 @@ export default {
     },
     toShare(){
       if(this.rightAnswerCount > 6 || this.whiteList.indexOf(this.uid)>-1){
-        this.shareData['link'] = `http://www.vr0101.com/qa/#/PkAnswer/${this.uid}/${this.rightAnswerCount}`
+        this.shareData['link'] = `http://www.vr0101.com/shareRedirect?openid=${this.uid}&total=${this.rightAnswerCount}`
         this.shareData['title']=`${this.myUserinfo.nickname}觉得这个答题你肯定玩不到${this.rightAnswerCount}分，不服来战！`
         this.shareData['des']=`${this.myUserinfo.nickname}觉得这个答题你肯定玩不到${this.rightAnswerCount}分，不服来战！`
         this.shareAnswer()
@@ -290,7 +295,6 @@ export default {
           link: that.shareData.link,
           imgUrl: 'http://www.vr0101.com/qa/static/img/share.jpg',
           success: (res) => {
-          alert(that.shareData.link)
             let qaShare = that.getCookie('qaShare')
             if (!qaShare) {
               that.addIntegral(that.uid, 1)
@@ -311,7 +315,7 @@ export default {
           link: that.shareData.link,
           imgUrl: 'http://www.vr0101.com/qa/static/img/share.jpg',
           success: function () {
-            alert(that.shareData.link)
+
             let qaShare = that.getCookie('qaShare')
             if (!qaShare) {
               that.addIntegral(that.uid, 1)
@@ -332,6 +336,11 @@ export default {
 </script>
 
 <style scoped lang="less">
+.logos{
+  width: 143px;
+  height: 50px;
+  margin:100px auto 20px;
+}
   .waaper{
     overflow-y: auto;
     height: 100%;
