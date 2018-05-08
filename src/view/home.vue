@@ -1,6 +1,7 @@
 <template>
   <div class="waaper">
     <div class="logo"></div>
+    <div class="logo-two"></div>
     <div class="rule-btn" @click="showRule">游戏规则</div>
     <div class="price-btn" @click="showPrice">奖项设置</div>
     <figure class="banner">
@@ -97,12 +98,21 @@ export default {
       width: 196px;
       height: 54px;
       margin:66px 0 0 56px;
-      background: url('http://www.vr0101.com/qa/static/img/logo.png')
+      background: url('http://www.vr0101.com/qa/static/img/logo.png');
+      float: left;
+    }
+    .logo-two{
+      width: 141px;
+      height: 50px;
+      margin:66px 0 0 30px;
+      background: url('../../static/img/logo_2.png') 50% 50%;
+      float: left;
     }
     .banner{
       width: 588px;
       height: 578px;
       margin:0 auto 35px;
+      clear: both;
     }
     .btn-link{
       display: block;

@@ -98,6 +98,7 @@ export default {
     }
   },
   created () {
+    console.log(123)
     this.getWxconfig()
     this.hideshare()
     this.getQuestion()
@@ -106,7 +107,7 @@ export default {
     this.getShareUser(this.$route.params.uid)
     this.getMyUser()
     // 判断是否为今天pk过的用户
-    this.getIsPkUser(this.shareUserinfo.uid)
+    this.getIsPkUser(his.$route.params.uid)
     this.checkPkCount()
   },
   mounted () {
@@ -123,9 +124,7 @@ export default {
       }
     },
     getShareUser (uid) {
-      let json={
-        uid:`${uid}`
-      }
+      let json={uid}
       XHR.getUser(json).then((res) => {
         let {data,status} = res.data
         if(!status){
@@ -137,6 +136,7 @@ export default {
       let user = storage.get('userInfo')
       this.myUserinfo = JSON.parse(user)
       if (this.shareUserinfo.uid == this.myUserinfo.uid) {
+        console.log(1)
         this.jump('/')
       }else{
         let json={
@@ -219,7 +219,8 @@ export default {
     },
     checkPkCount () { // 判断pk次数是否超过4次
       let pkCount = this.getCookie('pkCount')
-      if(parseInt(pkCount)>1){
+      if(pkCount && pkCount > 1){
+        console.log(2)
         this.jump('/')
       }
     },

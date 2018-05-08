@@ -104,9 +104,7 @@ export default {
       if(todayFen){
         this.isSubmit = 1
         this.rightAnswerCount = todayFen
-        if (this.todayFen > 6 || this.whiteList.indexOf(this.uid)>-1) {
-          this.toShare()
-        }
+        this.toShare()
       }
     },
     backList () {
@@ -261,22 +259,22 @@ export default {
         console.log(res.data)
       })
     },
-    checkShareNum(that){
-      let shareNum = that.getCookie('sharePK')
+    checkShareNum(){
+      let shareNum = this.getCookie('sharePK')
       if(shareNum){
         if(shareNum>3){
-          that.showToast('您今天邀请好友pk的次数已达到上限')
+          this.showToast('您今天邀请好友pk的次数已达到上限')
         }
         if(shareNum>2){
-          that.shareData['link']='http://www.vr0101.com/qa/index.html'
-          that.shareData['des']='呼朋唤友来答题，潍柴王者就是你…'
-          that.shareData['title']='呼朋唤友来答题，潍柴王者就是你…'
-          that.shareAnswer()
+          this.shareData['link']='http://www.vr0101.com/qa/index.html'
+          this.shareData['des']='呼朋唤友来答题，潍柴王者就是你…'
+          this.shareData['title']='呼朋唤友来答题，潍柴王者就是你…'
+          this.shareAnswer()
         }
         shareNum = parseInt(shareNum)+1
-        that.setCookie('sharePK',shareNum)
+        this.setCookie('sharePK',shareNum)
       }else{
-        that.setCookie('sharePK',1)
+        this.setCookie('sharePK',1)
       }
     },
     shareAnswer () {
