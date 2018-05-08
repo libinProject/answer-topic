@@ -292,6 +292,7 @@ export default {
           link: that.shareData.link,
           imgUrl: 'http://www.vr0101.com/qa/static/img/share.jpg',
           success: (res) => {
+          alert(that.shareData.link)
             let qaShare = that.getCookie('qaShare')
             if (!qaShare) {
               that.addIntegral(that.uid, 1)
@@ -312,6 +313,7 @@ export default {
           link: that.shareData.link,
           imgUrl: 'http://www.vr0101.com/qa/static/img/share.jpg',
           success: function () {
+            alert(that.shareData.link)
             let qaShare = that.getCookie('qaShare')
             if (!qaShare) {
               that.addIntegral(that.uid, 1)

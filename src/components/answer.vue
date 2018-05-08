@@ -2,7 +2,7 @@
  <div class="answer">
     <header>第{{num[qsIndex]}}题</header>
     <div class="content">
-      <ul class="wraper" :style="`transform: translate3d(-${625 * qsIndex}px, 0px, 0px);transition-duration: 0;`">
+      <ul class="wraper" :style="`webkitTransform: translate3d(-${distance}px, 0px, 0px);`">
         <li v-for="(item,indexNum) in ask" :key="item.id" v-if="indexNum<=qsIndex">
           <h4 class="title">{{item.question}}?</h4>
           <div :class="['ask',lock==index&&index==item.answer?'yes':'',lock==index&&index!=item.answer?'err':'']" 
