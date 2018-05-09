@@ -4,7 +4,7 @@
     <div class="content">
       <ul class="wraper" :style="`webkitTransform: translate3d(-${distance}px, 0px, 0px);`">
         <li v-for="(item,indexNum) in ask" :key="item.id" v-if="indexNum<=qsIndex">
-          <h4 class="title">{{item.question}}?</h4>
+          <h4 class="title">{{item.question}}</h4>
           <div :class="['ask',lock==index&&index==item.answer?'yes':'',lock==index&&index!=item.answer?'err':'']" 
             v-for="(answer, index) in item.answerList" 
             :key="index" @click="select(index,item)">{{answer}}</div>
