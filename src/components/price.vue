@@ -9,7 +9,7 @@
             <img src="http://www.vr0101.com/qa/static/img/price-1.png" alt="">
           </figure>
           <div class="content">
-            <div>奖品： </div>天堂雨伞<br>或水杯
+            <div>奖品： </div>雨伞<br>或水杯
           </div>
         </div>
       </li>

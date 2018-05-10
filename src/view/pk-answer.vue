@@ -156,17 +156,18 @@ export default {
     getQuestion() {
       let json = {
         batch:window.batch,
+        type:'2',
         project:'king_of_answer'
       }
-      let todayAnswer = this.getCookie('qa')
-      json['type'] = todayAnswer ? 2 : 1
+      // let todayAnswer = this.getCookie('qa')
+      // json['type'] = todayAnswer ? 2 : 1
       XHR.getQs(json).then((res) => {
         let {data,status} = res.data
         if(!status){
           this.ask = data
         }
         if(status == '2'){
-          this.jump('/')
+          window.location.href = 'http://www.vr0101.com/qa/index.html'
         }
       })
     },
@@ -220,11 +221,11 @@ export default {
         this.setCookie('pkCount',1)
       }
     },
-    checkPkCount () { // 判断pk次数是否超过4次
+    checkPkCount () { // 判断pk次数是否超过2次
       let pkCount = this.getCookie('pkCount')
       if(pkCount && pkCount > 1){
-        console.log(2)
-        this.jump('/')
+        console.log(5666);
+        // this.jump('/')
       }
     },
     submit(){
@@ -236,6 +237,11 @@ export default {
         type:2,
         answerList,
         rightAnswerCount :this.rightAnswerCount
+      }
+      let pkCount = this.getCookie('pkCount')
+      if(pkCount && pkCount > 1){
+        this.showToast('恭喜您提交成功')
+        return
       }
       XHR.submitAnswer(json).then((res) => {
         let {status,data} = res.data
