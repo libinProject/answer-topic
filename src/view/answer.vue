@@ -58,14 +58,7 @@ export default {
       errAnswerList:[], //答错题目id
       submitStatus:false, // 提交状态 上锁
       isSubmit:0, // 是否提交
-      whiteList:[
-        'oeemZs0amHyBxarRXS4msd_DbI1E',
-        'oeemZs1XQcsq5U7UODNjV2mUG8TY',
-        'oeemZs1aTdw3jJddI3X8M9DCznAs',
-        'oeemZs6bz2GWqz-qg6guLfezhfJ4',
-        'oeemZs3P86PePtfIdwi7_EyQM2Ms',
-        'oeemZs9BMR2olwRLQFol6fLmw7pQ',
-        'oeemZs7WaW0RB9OjEVPeMpYK74rE'], // 白名单
+      whiteList:[], // 白名单
       myUserinfo:'',
       shareData: {
         link:'http://www.vr0101.com/qa/index.html',
