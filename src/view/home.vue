@@ -7,7 +7,7 @@
       <img src="http://www.vr0101.com/qa/static/img/home-baner.png" alt="">
     </figure>
     <span @click="getQuestion" class="btn-link to-ask">开始答题</span>
-    <a href="https://mp.weixin.qq.com/s/f80J368Aak8aoCpUfwaAoQ" class="btn-link to-cheats">偷越秘籍</a>
+    <a href="https://mp.weixin.qq.com/s/vjfcgwls7FWlQMICWp9O0Q" class="btn-link to-cheats">偷越秘籍</a>
     <span @click="jump('/ranking')" class="btn-link to-ranking">排行榜</span>
     <Rule v-show="showRuleStatus" :status="showRuleStatus" @showRule="showRule"></Rule>
     <Price v-show="showPriceStatus" :status="showPriceStatus" @showRule="showPrice"></Price>
