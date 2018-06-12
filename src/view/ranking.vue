@@ -25,7 +25,7 @@
       </ul>
       <!-- 总榜 -->
       <ul class="list-box" v-show="tabs==1" @scroll="allSccroll">
-          <li v-for="(item,index) in allList.list" :key="index">
+          <li v-for="(item,index) in allList.list"  v-if="item.nickname" :key="index">
             <rankList :item='item' :index='index' type=""></rankList>
           </li>
           <li class="null" v-if="!allList.list.length">暂无数据</li>
@@ -110,10 +110,10 @@ export default {
         page:type.page
       }
       XHR.getDayRank(json).then((res) => {
-        let {data,status} = res.data
+        let {data,status,total} = res.data
         if(!status){
           type.list = [...type.list, ...data]
-          if (data.length< 20) {
+          if (data.length==0) {
             type.end = true
           }else{
             type.loading = 0
@@ -139,7 +139,7 @@ export default {
         let {data,status} = res.data
         if(!status){
           type.list = [...type.list, ...data]
-          if (data.length< 20) {
+          if (data.length== 0) {
             type.end = true
           }else{
             type.loading = 0

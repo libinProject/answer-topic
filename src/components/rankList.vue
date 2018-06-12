@@ -57,6 +57,7 @@ export default {
       color: #1a2d63;
       font-size: 28px;
       flex: 1;
+      word-break: break-all;
     }
     .label{
       border: 3px solid #0d53e0;
