@@ -68,6 +68,11 @@ export default {
       this.showPriceStatus =! this.showPriceStatus
     },
     getQuestion() {
+      let todydat = new Date().getDay()
+      if(todydat==0||todydat==6){
+        this.showToast('周末不开放答题')
+        return
+      }
       let json = {
         batch:1,
         type:1,
