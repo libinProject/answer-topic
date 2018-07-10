@@ -98,17 +98,21 @@ export default {
     }
   },
   created () {
-    console.log(123)
-    this.getWxconfig()
-    this.hideshare()
-    this.getQuestion()
-    this.shareUserinfo.uid = this.$route.params.uid
-    this.shareUserinfo.fen = this.$route.params.fen
-    this.getShareUser(this.$route.params.uid)
-    this.getMyUser()
-    // 判断是否为今天pk过的用户
-    this.getIsPkUser(his.$route.params.uid)
-    this.checkPkCount()
+    let todydat = new Date().getDay()
+    if(todydat==0||todydat==6){
+      this.jump('/')
+    }else{
+      this.getWxconfig()
+      this.hideshare()
+      this.getQuestion()
+      this.shareUserinfo.uid = this.$route.params.uid
+      this.shareUserinfo.fen = this.$route.params.fen
+      this.getShareUser(this.$route.params.uid)
+      this.getMyUser()
+      // 判断是否为今天pk过的用户
+      this.getIsPkUser(his.$route.params.uid)
+      this.checkPkCount()
+    }
   },
   mounted () {
     this.share()

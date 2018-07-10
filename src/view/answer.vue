@@ -83,13 +83,18 @@ export default {
     }
   },
   created () {
-    this.getWxconfig()
-    this.hideshare()
-    this.uid = this.$route.params.uid
-    this.getQuestion()
-    this.getMyUser()
-    this.checktodayFen()
-    this.setCookie('qa','isok')
+    let todydat = new Date().getDay()
+    if(todydat==0||todydat==6){
+      this.jump('/')
+    }else{
+      this.getWxconfig()
+      this.hideshare()
+      this.uid = this.$route.params.uid
+      this.getQuestion()
+      this.getMyUser()
+      this.checktodayFen()
+      this.setCookie('qa','isok')
+    }
   },
   mounted () {
     this.scrollFooter()
