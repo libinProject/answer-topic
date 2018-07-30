@@ -83,6 +83,7 @@ export default {
     back
   },
   created () {
+    this.jump('/')
     this.getWxconfig()
     this.hideshare()
     this.getMyUser()

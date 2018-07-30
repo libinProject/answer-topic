@@ -83,6 +83,7 @@ export default {
     }
   },
   created () {
+    this.jump('/')
     let todydat = new Date().getDay()
     if(todydat==0||todydat==6){
       this.jump('/')

@@ -7,8 +7,8 @@
       <img src="http://www.vr0101.com/qa/static/img/home-baner.png" alt="">
     </figure>
     <span @click="getQuestion" class="btn-link to-ask">开始答题</span>
-    <a href="https://mp.weixin.qq.com/s/vjfcgwls7FWlQMICWp9O0Q" class="btn-link to-cheats">偷越秘籍</a>
-    <span @click="jump('/ranking')" class="btn-link to-ranking">排行榜</span>
+    <a href="https://mp.weixin.qq.com/s/vjfcgwls7FWlQMICWp9O0Q" class="btn-link to-cheats" @click.prevent="tomiji">偷越秘籍</a>
+    <span @click="torank" class="btn-link to-ranking">排行榜</span>
     <Rule v-show="showRuleStatus" :status="showRuleStatus" @showRule="showRule"></Rule>
     <Price v-show="showPriceStatus" :status="showPriceStatus" @showRule="showPrice"></Price>
     <toast :msg="toastMsg" v-if="toastState"></toast>
@@ -45,6 +45,13 @@ export default {
     this.share()
   },
   methods: {
+    torank(){
+      this.showToast('活动已停止')
+      // this.jump('/ranking')
+    },
+    tomiji(){
+      this.showToast('活动已停止')
+    },
     getShare(){
       let shareUid = this.getQueryString('shareUid')
       let linkTime = this.getQueryString('time')
@@ -68,6 +75,7 @@ export default {
       this.showPriceStatus =! this.showPriceStatus
     },
     getQuestion() {
+      this.showToast('活动已停止')
       let todydat = new Date().getDay()
       if(todydat==0||todydat==6){
         this.showToast('周末不开放答题')

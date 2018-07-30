@@ -99,14 +99,14 @@ export default {
                         link: `http://www.vr0101.com/qa/index.html?shareUid=${user.uid}&time=${time}`,
                         imgUrl: 'http://www.vr0101.com/qa/static/img/share.jpg',
                         success: (res) => {
-                            let todydat = new Date().getDay()
-                            if (todydat != 0 && todydat != 6) {
-                                let qaShare = this.getCookie('qaShare')
-                                if (!qaShare) {
-                                    this.addIntegral(user.uid, 1)
-                                    this.setCookie('qaShare', 'isok')
-                                }
-                            }
+                            // let todydat = new Date().getDay()
+                            // if (todydat != 0 && todydat != 6) {
+                            //     let qaShare = this.getCookie('qaShare')
+                            //     if (!qaShare) {
+                            //         this.addIntegral(user.uid, 1)
+                            //         this.setCookie('qaShare', 'isok')
+                            //     }
+                            // }
                         },
                         cancel: (res) => {
                             // 用户取消分享后执行的回调函数
@@ -119,14 +119,14 @@ export default {
                     link: `http://www.vr0101.com/qa/index.html?shareUid=${user.uid}&time=${time}`,
                     imgUrl: 'http://www.vr0101.com/qa/static/img/share.jpg',
                     success: (res) => {
-                        let todydat = new Date().getDay()
-                        if (todydat != 0 && todydat != 6) {
-                            let qaShare = this.getCookie('qaShare')
-                            if (!qaShare) {
-                                this.addIntegral(user.uid, 1)
-                                this.setCookie('qaShare', 'isok')
-                            }
-                        }
+                        // let todydat = new Date().getDay()
+                        // if (todydat != 0 && todydat != 6) {
+                        //     let qaShare = this.getCookie('qaShare')
+                        //     if (!qaShare) {
+                        //         this.addIntegral(user.uid, 1)
+                        //         this.setCookie('qaShare', 'isok')
+                        //     }
+                        // }
                     },
                     cancel: function() {
                         // 用户取消分享后执行的回调函数
